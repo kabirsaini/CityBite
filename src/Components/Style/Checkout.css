@@ -1,0 +1,28 @@
+.address-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 300px;
+    margin-top: 10px;
+  }
+  
+  .address-form input {
+    padding: 8px;
+    font-size: 14px;
+  }
+  
+  .address-form button {
+    padding: 8px 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .saved-address {
+    margin-top: 10px;
+    background: #f5f5f5;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  

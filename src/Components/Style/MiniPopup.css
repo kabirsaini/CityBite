@@ -1,0 +1,36 @@
+.mini-popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+  }
+  
+  .mini-popup-content {
+    background-color: white;
+    padding: 20px;
+    width: 350px;
+    border-radius: 8px;
+    border: 1px solid #d5d9d9;
+    box-shadow: 0 0 14px rgba(15, 17, 17, 0.5);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .close-btn {
+    position: absolute;
+    top: 6px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+  }
+  
