@@ -1,0 +1,150 @@
+.restaurant-details {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.tab-nav {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 30px;
+    border-bottom: 2px solid #eee;
+}
+
+.tab-nav button {
+    background: none;
+    border: none;
+    font-size: 18px;
+    font-weight: 500;
+    padding: 12px 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: #555;
+    position: relative;
+}
+
+.tab-nav button.active {
+    color: #000;
+    font-weight: bold;
+    border-bottom: 3px solid #000;
+}
+
+.tab-nav button:hover {
+    color: #000;
+}
+
+.tab-content {
+    padding-top: 20px;
+}
+
+.tab-content h3 {
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.tab-content p {
+    font-size: 16px;
+    color: #555;
+    line-height: 1.6;
+}
+
+.menu-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: flex-start;
+}
+
+.menu-item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 1rem;
+    width: 250px;
+    background-color: #fff;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.menu-item:hover {
+    transform: translateY(-4px);
+}
+
+.menu-item img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.item-info {
+    z-index: 2;
+}
+
+.menu-item .add-to-cart:disabled {
+    background-color: grey;
+    cursor: not-allowed;
+}
+
+.menu-item .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.4); /* semi-transparent black */
+    z-index: 1;
+    border-radius: 10px;
+}
+
+
+
+.item-info p {
+    margin: 5px 0;
+}
+
+.add-to-cart {
+    margin-top: 10px;
+    background-color: #ff6600;
+    border: none;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.add-to-cart:hover {
+    background-color: #e65c00;
+}
+
+
+@media (max-width: 768px) {
+    .menu-item {
+        /* Keep row layout */
+        flex-direction: row;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap; /* Optional: prevents overflow */
+    }
+
+    .menu-item img {
+        width: 100px;
+        height: 80px;
+    }
+
+    .add-to-cart {
+        padding: 6px 12px;
+        font-size: 13px;
+        margin-top: 0;
+        width: auto; /* prevent stretching full width */
+    }
+}
+

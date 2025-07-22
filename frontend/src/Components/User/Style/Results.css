@@ -1,0 +1,70 @@
+/* .restaurant-cont{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 0 auto;
+}
+.restaurant-card{
+    width: 30%;
+    height: 200px;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    border-radius: 10px;
+} */
+
+
+/* Outer container for the results page */
+.results-page {
+    padding: 60px 40px;
+    background-color: #f9f9f9;
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Heading for the city */
+.results-page h2 {
+    /* font-size: 32px; */
+    /* font-weight: 600; */
+    color: #333;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+/* Loading and no-results message */
+.results-page p {
+    text-align: center;
+    /* font-size: 18px; */
+    color: #666;
+}
+
+/* Container for all restaurant cards */
+.restaurant-cont {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    padding: 0 20px;
+    justify-content: center;
+}
+
+/* Optional: Smooth animation on render */
+.restaurant-cont > div {
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

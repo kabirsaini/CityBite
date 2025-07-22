@@ -1,0 +1,95 @@
+.Checkout {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 30px;
+  background-color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+}
+
+.Checkout h3 {
+  font-size: 22px;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+}
+
+.Checkout p {
+  font-size: 16px;
+  margin: 5px 0;
+}
+
+.Checkout .change-address {
+  color: #007bff;
+  cursor: pointer;
+  margin-top: 10px;
+  font-weight: 500;
+  text-decoration: underline;
+}
+
+.payment {
+  margin-top: 40px;
+}
+
+.payment h2 {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.payment-methods {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.payment-method button {
+  padding: 12px 18px;
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.payment-method button:hover {
+  background-color: #218838;
+}
+
+/* Popup input styling */
+.MiniPopup input[type="text"] {
+  width: 100%;
+  margin: 8px 0;
+  padding: 10px 14px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+  outline: none;
+  transition: border 0.2s ease;
+}
+
+.MiniPopup input:focus {
+  border-color: #007bff;
+}
+
+/* Popup update button */
+.MiniPopup button {
+  margin-top: 12px;
+  padding: 10px 16px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.MiniPopup button:hover {
+  background-color: #0056b3;
+}
+
+

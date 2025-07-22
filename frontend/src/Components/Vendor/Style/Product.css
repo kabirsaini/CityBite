@@ -1,0 +1,80 @@
+.product-page {
+
+    padding: 20px;
+  }
+  
+  .product-row {
+    display: flex;
+    flex-direction: column; /* row-wise: header on left, products on right */
+    gap: 30px;
+    margin-left: 220px;
+  }
+  
+  /* Header */
+  .product-header {
+    
+  }
+  
+  /* Product container */
+  .product-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  /* Individual product card */
+  .product-card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 15px;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  /* Disabled state */
+  .product-card.disabled {
+    opacity: 0.6;
+  }
+  
+  /* Product image */
+  .product-image {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    margin-bottom: 10px;
+  }
+  
+  /* Button section */
+  .product-card-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  
+  .available-button,
+  .unavailable-button,
+  .delete-button {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .available-button {
+    background-color: #4caf50;
+    color: white;
+  }
+  
+  .unavailable-button {
+    background-color: #f44336;
+    color: white;
+  }
+  
+  .delete-button {
+    background-color: #9c27b0;
+    color: white;
+  }
+  
