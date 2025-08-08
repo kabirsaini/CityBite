@@ -163,3 +163,47 @@
   background-color: #e7643a;
   transform: scale(1.05);
 }
+
+
+.finder-section{
+  display: flex;
+  flex-direction: column;
+}
+
+.finder-container{
+  display: flex;
+  flex-direction: row;
+  flex-wrap:wrap;
+}
+
+.city-name{
+  font-size: 18px;
+  font-family: 'Quicksand', Helvetica, sans-serif;
+  margin-bottom: 20px;
+  color: black;
+}
+
+.finder-card{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 150px;
+  height: 200px;
+  overflow: hidden;
+  gap: 10px;
+  margin: 10px;
+
+}
+.city-image {
+  width: 100%;
+  height: 150px;
+  overflow: hidden;
+}
+
+.city-image img{
+  
+  width: 100%; /* Make the image take up 100% of its parent's width */
+  height: 150px;
+  object-fit: cover; 
+}

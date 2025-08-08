@@ -5,20 +5,15 @@ const bcrypt = require("bcrypt");
 // generating JWT token
 
 const signToken = (user) => {
-
     return jwt.sign({ id: user._id }, process.env.SECRET_KEY, { expiresIn: "1d" });
 }
 
-// Register User 
+// Register User
 
 exports.register = async (req, res) => {
-
     try {
-
         const { name, email, phone, password, role } = req.body;
-
         // check if the user already exists
-
         const existingUser = await User.findOne({
             email: email
         });
@@ -27,9 +22,6 @@ exports.register = async (req, res) => {
 
             return res.status(400).json({ message: "User already exists" });
         }
-
-        
-
         // step:1 (validating the entries--> email, phone, password)
 
         if (!name || !email || !phone || !password) {
@@ -63,8 +55,6 @@ exports.register = async (req, res) => {
         const token = signToken(user);
 
         res.status(201).json({ token, user });
-
-
 
     }
 

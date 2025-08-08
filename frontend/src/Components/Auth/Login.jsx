@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 const Login = () => {
 
     const navigate = useNavigate();
+    
     const {
         register,
         handleSubmit,
@@ -17,7 +18,7 @@ const Login = () => {
         try {
             const res = await fetch('http://localhost:3000/api/users/login', {
                 method: 'POST',
-                credentials: 'include', // 🔥 Needed for cookie to be stored
+                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -33,7 +34,7 @@ const Login = () => {
                 const { user, token } = result;
                 toast.success("Login successful ✅");
 
-                // store token and user in localStorage/session
+
                 localStorage.setItem("token", token);
                 localStorage.setItem("user", JSON.stringify(user));
 

@@ -71,6 +71,42 @@ function Mainpage() {
 
   ];
 
+  const Cities = [
+    {
+      id: 1,
+      image: "public/delhi-icon.png",
+      name: "delhi",
+    },
+    {
+      id: 2,
+      image: "public/banglore.png",
+      name: "bangalore",
+    },
+    {
+      id: 3,
+      image: "public/mumbai.png",
+      name: "mumbai",
+    },
+
+    {
+      id: 4,
+      image: "public/chennai.png",
+      name: "Chennai",
+    },
+    {
+      id: 5,
+      image: "public/kolkata.png",
+      name: "Kolkata",
+
+    },
+    {
+      id: 6,
+      image: "public/hyderabad.png",
+      name: "Hyderabad",
+    }
+
+  ];
+
   const [city, setCity] = useState('');
   const navigate = useNavigate();
 
@@ -102,6 +138,23 @@ function Mainpage() {
 
           <button className="find-button" onClick={handleSearch}>Search</button>
 
+        </div>
+
+        <div className="finder-section">
+          <div className="finder-header">
+            <h2>Find Your City</h2>
+          </div>
+
+          <div className="finder-container">
+            {Cities.map((city) => (
+            <div key={city.id} className="finder-card">
+              <div className="city-image">
+                <img src={`/${city.image}`} alt={city.name} />
+              </div>
+              <h2 className="city-name">{city.name}</h2>
+            </div>
+            ))}
+          </div>
         </div>
 
         <div className="mainpage-content">
