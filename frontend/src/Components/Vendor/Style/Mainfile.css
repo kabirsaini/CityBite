@@ -91,3 +91,48 @@ box-sizing: border-box;
     margin-top: 1rem;
     color: #444;
 }
+
+
+/* Buttons base */
+.btn {
+    appearance: none;
+    border: 0;
+    border-radius: 12px;
+    padding: 10px 14px;
+    font: 600 14px/1 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: transform 0.06s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    color: #fff;
+  }
+  
+  .btn:active { transform: translateY(1px); }
+  .btn:disabled { opacity: 0.6; cursor: not-allowed; }
+  
+  .btn:focus-visible {
+    outline: 3px solid rgba(59,130,246,0.5); /* focus ring */
+    outline-offset: 2px;
+  }
+  
+  /* Variants */
+  .btn--completed {
+    background: #16a34a;          /* green-600 */
+  }
+  .btn--completed:hover { background: #15803d; }  /* green-700 */
+  
+  .btn--declined {
+    background: #dc2626;          /* red-600 */
+  }
+  .btn--declined:hover { background: #b91c1c; }   /* red-700 */
+  
+  /* Optional layout wrapper */
+  .actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 8px;
+  }
+  

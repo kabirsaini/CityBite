@@ -1,4 +1,4 @@
-import '@/Components/User/Style/Login.css'; // Reusing Login.css
+import '@/Components/User/Style/Signup.css'; // new CSS file
 import { GoogleLogin } from '@react-oauth/google';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
@@ -31,7 +31,8 @@ const Signup = () => {
                     ? navigate('/vendor/KYC')
                     : navigate('/login');
             } else {
-                alert("Signup failed ❌\n" + result.message);
+                toast.error("Signup failed ❌\n" + result.message);
+                
             }
         } catch (err) {
             console.error(err);
@@ -39,21 +40,23 @@ const Signup = () => {
         }
     };
 
-
     return (
         <>
-            <div className="loginpage">
+            <div className="signup-page">
                 <div className="Login-left">
-                    <h1>Hungry Already?</h1>
-                    <h2>Sign Up to Discover Iconic Dishes Near You</h2>
+                    <div className="leftcontent">
+                        {/* <h1>Hungry Already?</h1> */}
+                        {/* <h2>Sign Up to Discover Iconic Dishes Near You</h2> */}
+
+                    </div>
                 </div>
 
-                <div className="login-container">
+                <div className="signup-container">
 
-                    <div className='loginbox'>
+                    <div className='signup-box'>
                         <h1 style={{ textAlign: 'center' }}>Sign Up</h1>
 
-                        <form onSubmit={handleSubmit(onSubmit)} className="login-form">
+                        <form onSubmit={handleSubmit(onSubmit)} className="signup-form">
                             <label>Name</label><br />
                             <input {...register('name', {
                                 required: "Name is required",
@@ -88,22 +91,22 @@ const Signup = () => {
 
                             <label>Role</label><br />
 
-                            <select className='select-wrapper' {...register("role", { required: "Role is required" })}>
+                            <select className='signup-select' {...register("role", { required: "Role is required" })}>
                                 <option value="user">Customer</option>
                                 <option value="vendor">Vendor</option>
                             </select>
                             {errors.role && <p className="error-msg">{errors.role.message}</p>}<br />
 
-                            <div className="button-wrapper">
-                                <button type="submit" disabled={isSubmitting} className="login-button">
+                            <div className="signup-button-wrapper">
+                                <button type="submit" disabled={isSubmitting} className="signup-button">
                                     {isSubmitting ? "Signing up..." : "Sign Up"}
                                 </button>
                             </div>
                         </form>
 
-                        <div className="divider"><span>or</span></div>
+                        <div className="signup-divider"><span>or</span></div>
 
-                        <div className="google-login">
+                        <div className="signup-google">
                             <GoogleLogin
                                 onSuccess={async (credentialResponse) => {
                                     try {
@@ -114,7 +117,7 @@ const Signup = () => {
                                             },
                                             body: JSON.stringify({
                                                 credential: credentialResponse.credential,
-                                                role: 'customer'  // or 'vendor' based on context
+                                                role: 'customer'
                                             }),
                                         });
 
@@ -126,7 +129,6 @@ const Signup = () => {
                                         const data = await res.json();
                                         console.log('Login success:', data);
 
-                                        // Store token and user
                                         localStorage.setItem('token', data.token);
                                         localStorage.setItem('user', JSON.stringify(data.user));
                                     } catch (err) {

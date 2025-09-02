@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
+import { FaSearch } from "react-icons/fa";
 
 
 function Mainpage() {
@@ -11,7 +12,7 @@ function Mainpage() {
     "north-indian.png",
     "east-indian.png",
     "west-indian.webp",
-    "east-indian.png",
+    "south-indian.webp",
   ];
 
   const settings = {
@@ -67,7 +68,21 @@ function Mainpage() {
       name: "Idli",
       description: "A soft and fluffy steamed rice cake, originating from South India.",
       city: "Bangalore",
-    }
+    },
+    {
+      id: 7,
+      image: "public/Dal-Bhati.png",
+      name: "Dal Batti Churma",
+      description: "A traditional Rajasthani dish consisting of lentils, baked wheat balls, and sweetened crushed wheat.",
+      city: "Jaipur",
+    },
+    {
+      id: 8,
+      image: "public/Vada-Pao.jpg",
+      name: "Vada Pao",
+      description: "A popular street food from Maharashtra, consisting of a spicy potato fritter sandwiched in a bread roll.",
+      city: "Mumbai",
+    },
 
   ];
 
@@ -75,17 +90,17 @@ function Mainpage() {
     {
       id: 1,
       image: "public/delhi-icon.png",
-      name: "delhi",
+      name: "Delhi",
     },
     {
       id: 2,
       image: "public/banglore.png",
-      name: "bangalore",
+      name: "Bangalore",
     },
     {
       id: 3,
       image: "public/mumbai.png",
-      name: "mumbai",
+      name: "Mumbai",
     },
 
     {
@@ -103,6 +118,26 @@ function Mainpage() {
       id: 6,
       image: "public/hyderabad.png",
       name: "Hyderabad",
+    },
+    {
+      id:7,
+      image: "public/amritsar.png",
+      name: "Amritsar",
+    },
+    {
+      id:8,
+      image: "public/jaipur.png",
+      name: "Jaipur",
+    },
+    {
+      id:8,
+      image: "public/vishakhapatnam.png",
+      name: "Vishakhapatnam",
+    },
+    {
+      id:9,
+      image: "public/udaipur.png",
+      name: "Udaipur",
     }
 
   ];
@@ -129,14 +164,22 @@ function Mainpage() {
 
         <div className="finder">
           <h2>Find Your Favorite Food in your city</h2>
+          
           <input
             type="text"
-            placeholder="Search Your city"
+            placeholder=" Search Your city"
             className="find-input"
             value={city}
-            onChange={(e) => setCity(e.target.value)} />
+            onChange={(e) => setCity(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                  e.preventDefault(); // Prevents page refresh
+                  handleSearch();
+              }
+          }}
+          />
 
-          <button className="find-button" onClick={handleSearch}>Search</button>
+          <button  className="find-button" onClick={handleSearch}><FaSearch className="search-icon" /> Search</button>
 
         </div>
 
@@ -148,7 +191,10 @@ function Mainpage() {
           <div className="finder-container">
             {Cities.map((city) => (
             <div key={city.id} className="finder-card">
-              <div className="city-image">
+              <div className="city-image" onClick={()=>{
+                setCity(city.name);
+                navigate(`/results/${city.name}`);
+              }}>
                 <img src={`/${city.image}`} alt={city.name} />
               </div>
               <h2 className="city-name">{city.name}</h2>
@@ -186,7 +232,7 @@ function Mainpage() {
 
         <div className="footer">
           <div className="footer-header">
-            <h2>Gurato</h2>
+            <h2>CityBite</h2>
           </div>
 
           <div className="footer-content">
@@ -212,7 +258,7 @@ function Mainpage() {
 
         </div>
         <div className="footer-bottom">
-          <p>© 2023 Gurato. All rights reserved.</p>
+          <p>© 2023 CityBite. All rights reserved.</p>
         </div>
       </div>
     </>

@@ -108,6 +108,33 @@ const Mainpage = () => {
         fetchVendorOrders();
     }, []);
 
+
+    const updateOrderStatus = async (orderId, newStatus) => {
+        try {
+            const token = localStorage.getItem("token"); // or however you store it
+
+            const res = await fetch(`http://localhost:3000/api/orders/${orderId}/status`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,  // 👈 important
+                },
+                body: JSON.stringify({ status: newStatus }),
+            });
+
+            if (res.ok) {
+                setOrders(prev => prev.filter(order => order._id !== orderId));
+            } else {
+                console.error("Failed:", await res.json());
+            }
+        } catch (err) {
+            console.error("Error:", err);
+        }
+    };
+
+
+
+
     return (
         <div className="mainpage-container">
             {vendor ? (
@@ -137,6 +164,22 @@ const Mainpage = () => {
                                             </li>
                                         ))}
                                     </ul>
+
+                                    <div className="actions">
+                                        <button
+                                            className="btn btn--completed"
+                                            onClick={() => updateOrderStatus(order._id, "Completed")}
+                                        >
+                                            ✅ Completed
+                                        </button>
+
+                                        <button
+                                            className="btn btn--declined"
+                                            onClick={() => updateOrderStatus(order._id, "Cancelled")}
+                                        >
+                                            ❌ Declined
+                                        </button>
+                                    </div>
                                 </div>
                             ))
                         )}

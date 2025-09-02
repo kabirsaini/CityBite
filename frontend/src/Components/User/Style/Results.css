@@ -22,6 +22,7 @@
 /* Outer container for the results page */
 .results-page {
     padding: 60px 40px;
+    padding-top: 0px;
     background-color: #f9f9f9;
     min-height: 100vh;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -44,7 +45,7 @@
 }
 
 /* Container for all restaurant cards */
-.restaurant-cont {
+.restaurant-cont2 {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 30px;
@@ -53,7 +54,7 @@
 }
 
 /* Optional: Smooth animation on render */
-.restaurant-cont > div {
+.restaurant-cont2 > div {
     animation: fadeIn 0.4s ease-in-out;
 }
 
@@ -68,3 +69,52 @@
         transform: translateY(0);
     }
 }
+
+
+/* Container for search bar */
+.finder2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2rem auto;
+    width: 100%;
+    max-width: 700px; /* wider for better look */
+    background: #fff;
+    padding: 8px 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    height: 40px;
+    margin-top:10px;
+    padding-left: 25px;
+  }
+  
+  /* Search Input */
+  .find-input2 {
+    flex: 1;
+    padding: 14px 18px;
+    padding-left: 10px;
+    font-size: 1rem;
+    border: none;
+    outline: none;
+    transition: all 0.3s ease;
+  }
+  
+  .find-input2:focus {
+    background: #fff;
+    box-shadow: inset 0 0 6px rgba(0, 123, 255, 0.3);
+  }
+  
+
+  /* .find-button2 {
+    padding: 14px 22px;
+    background-color: #CB202D;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 0 50px 50px 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+   */
+  

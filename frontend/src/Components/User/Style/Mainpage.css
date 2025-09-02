@@ -85,10 +85,7 @@
 }
 
 .mainpage-content {
-  padding: 40px 20px;
-  max-width: 1200px;
-  margin-left: 20px;
-  
+  padding: 20px;
 }
 
 .mainpage-content h1 {
@@ -99,9 +96,10 @@
 
 .restaurant-cont {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 25px;
   justify-items: center;
+  padding-bottom:10px;
 }
 
 .restaurant-card {
@@ -168,12 +166,14 @@
 .finder-section{
   display: flex;
   flex-direction: column;
+  margin-left:20px;
 }
 
 .finder-container{
   display: flex;
   flex-direction: row;
   flex-wrap:wrap;
+  
 }
 
 .city-name{
@@ -188,7 +188,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 150px;
+  width: auto;
   height: 200px;
   overflow: hidden;
   gap: 10px;
@@ -197,13 +197,13 @@
 }
 .city-image {
   width: 100%;
-  height: 150px;
+  height: 100px;
   overflow: hidden;
 }
 
 .city-image img{
   
   width: 100%; /* Make the image take up 100% of its parent's width */
-  height: 150px;
+  height: 100px;
   object-fit: cover; 
 }

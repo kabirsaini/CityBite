@@ -1,9 +1,10 @@
 import '@/Components/User/Style/Checkout.css';
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import MiniPopup from './MiniPopup';
-
-const CheckoutPage = () => {
+import '@/Components/User/Style/MiniPopup.css';
+const CheckoutPage = (props) => {
     const navigate = useNavigate();
     const location = useLocation();
     const cartItems = location.state?.cartItems || [];
@@ -17,6 +18,21 @@ const CheckoutPage = () => {
         pincode: ''
     });
     const [showForm, setShowForm] = useState(false);
+
+    const [method, setMethod] = useState("");
+
+    const handleProceed = () => {
+        if (!method) {
+            alert("Please select a payment method.");
+            return;
+        }
+
+        if (method === "cod") {
+            alert("Order placed with Cash on Delivery ✅");
+        } else if (method === "online") {
+            handlePayment(); // Razorpay
+        }
+    };
 
     //User's saved address
     useEffect(() => {
@@ -102,12 +118,12 @@ const CheckoutPage = () => {
             key: 'rzp_test_M9UX3DjW2bBcA3',
             amount: data.amount,
             currency: 'INR',
-            name: 'Gorato',
+            name: 'CityBite',
             description: 'Test Transaction',
             image: '/logo.png',
             order_id: data.id,
             handler: async function (response) {
-                alert('Payment successful!');
+                toast.success("Payment successfull! ✅");
                 try {
                     const orderRes = await fetch('http://localhost:3000/api/orders', {
                         method: 'POST',
@@ -121,7 +137,8 @@ const CheckoutPage = () => {
 
                     if (orderRes.ok) {
                         toast.success("Order placed successfully! ✅");
-                        navigate('/SuccessPage');
+                        navigate('/MainPage');
+                        props.clearCart();
                     } else {
                         alert(result.message || 'Failed to place order.');
                     }
@@ -148,56 +165,92 @@ const CheckoutPage = () => {
     };
 
     return (
-        <div className='Checkout'>
-            <h3>Delivery Address</h3>
+        <>
+            <div className="checkout-container">
+                
+                <div className="checkout-left">
+                    
+                    <div className="Checkout">
+                        <h3>Delivery Address</h3>
 
-            {savedAddress ? (
-                <>
-                    <p>{savedAddress.street}, {savedAddress.city}</p>
-                    <p>{savedAddress.state} - {savedAddress.pincode}</p>
-                    <p
-                        style={{ color: 'blue', cursor: 'pointer' }}
-                        onClick={() => setShowForm(true)}
-                    >
-                        Change Address
-                    </p>
-                </>
-            ) : (
-                <p>Loading address...</p>
-            )}
+                        {savedAddress ? (
+                            <>
+                                <p>{savedAddress.street}, {savedAddress.city}</p>
+                                <p>{savedAddress.state} - {savedAddress.pincode}</p>
+                                <p
+                                    style={{ color: 'blue', cursor: 'pointer' }}
+                                    onClick={() => setShowForm(true)}
+                                >
+                                    Change Address
+                                </p>
+                            </>
+                        ) : (
+                            <p>Loading address...</p>
+                        )}
 
-            {showForm && (
-                <MiniPopup onClose={() => setShowForm(false)}>
-                    <h4>{savedAddress ? 'Update Address' : 'Add Address'}</h4>
-                    <input type="text" name="street" placeholder="Street" value={formAddress.street} onChange={handleChange} />
-                    <input type="text" name="city" placeholder="City" value={formAddress.city} onChange={handleChange} />
-                    <input type="text" name="state" placeholder="State" value={formAddress.state} onChange={handleChange} />
-                    <input type="text" name="pincode" placeholder="Pincode" value={formAddress.pincode} onChange={handleChange} />
-                    <button onClick={handleUpdate}>Save</button>
-                </MiniPopup>
-            )}
+                        {showForm && (
+                            <MiniPopup onClose={() => setShowForm(false)}>
+                                <h4>{savedAddress ? 'Update Address' : 'Add Address'}</h4>
+                                <input type="text" name="street" placeholder="Street" value={formAddress.street} onChange={handleChange} />
+                                <input type="text" name="city" placeholder="City" value={formAddress.city} onChange={handleChange} />
+                                <input type="text" name="state" placeholder="State" value={formAddress.state} onChange={handleChange} />
+                                <input type="text" name="pincode" placeholder="Pincode" value={formAddress.pincode} onChange={handleChange} />
+                                <button onClick={handleUpdate}>Save</button>
+                            </MiniPopup>
+                        )}
+                    </div>
 
-            <div className="payment">
-                <h2>Select Payment Method</h2>
-                <div className="payment-methods">
-                    <div className="payment-method">
-                        <button
-                            onClick={handlePayment}
-                            style={{
-                                padding: '12px 18px',
-                                backgroundColor: '#28a745',
-                                color: '#fff',
-                                border: 'none',
-                                borderRadius: '6px',
-                                cursor: 'pointer'
-                            }}
-                        >
-                            Pay with Razorpay
+                    {/* Payment Section */}
+                    <div className="payment">
+                        <h2>Select Payment Method</h2>
+
+                        <div className="payment-methods">
+
+                            <p>COD</p>
+                            <label className="payment-method">
+                                <input
+                                    type="radio"
+                                    name="payment"
+                                    value="cod"
+                                    checked={method === "cod"}
+                                    onChange={() => setMethod("cod")}
+                                />
+                                Cash on Delivery
+                            </label>
+
+                            <p>Online Payments</p>
+                            <label className="payment-method">
+                                <input
+                                    type="radio"
+                                    name="payment"
+                                    value="online"
+                                    checked={method === "online"}
+                                    onChange={() => setMethod("online")}
+                                />
+                                <img src="Razorpay_logo.svg" width={80} height={30} alt="Razorpay" />
+                            </label>
+                        </div>
+
+                        <button onClick={handleProceed} className="proceed-btn">
+                            Proceed
                         </button>
                     </div>
                 </div>
+
+                {/* RIGHT SIDE - Order Summary */}
+                <div className="checkout-right">
+                    <h2>Order Summary</h2>
+                    <div className="order-summary">
+                        <p><strong>Items:</strong> {cartItems.length}</p>
+                        <p><strong>Delivery:</strong> Free</p>
+                        <p><strong>Promotion Applied:</strong> None</p>
+                        <hr />
+                        <p className="order-total"><strong>Order Total:</strong> ₹{total}</p>
+                    </div>
+                </div>
             </div>
-        </div>
+
+        </>
     );
 };
 

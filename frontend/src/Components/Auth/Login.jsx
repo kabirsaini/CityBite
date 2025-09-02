@@ -18,7 +18,6 @@ const Login = () => {
         try {
             const res = await fetch('http://localhost:3000/api/users/login', {
                 method: 'POST',
-                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -53,39 +52,39 @@ const Login = () => {
         }
     };
 
-    <GoogleLogin
-        onSuccess={async (credentialResponse) => {
-            try {
-                const res = await fetch('http://localhost:5000/api/users/google-login', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        credential: credentialResponse.credential,
-                        role: 'customer'  // or 'vendor' based on context
-                    }),
-                });
+    // <GoogleLogin
+    //     onSuccess={async (credentialResponse) => {
+    //         try {
+    //             const res = await fetch('http://localhost:5000/api/users/google-login', {
+    //                 method: 'POST',
+    //                 headers: {
+    //                     'Content-Type': 'application/json',
+    //                 },
+    //                 body: JSON.stringify({
+    //                     credential: credentialResponse.credential,
+    //                     role: 'customer'  // or 'vendor' based on context
+    //                 }),
+    //             });
 
-                if (!res.ok) {
-                    const errorData = await res.json();
-                    throw new Error(errorData.message || 'Login failed');
-                }
+    //             if (!res.ok) {
+    //                 const errorData = await res.json();
+    //                 throw new Error(errorData.message || 'Login failed');
+    //             }
 
-                const data = await res.json();
-                console.log('Login success:', data);
+    //             const data = await res.json();
+    //             console.log('Login success:', data);
 
-                // Store token and user
-                localStorage.setItem('token', data.token);
-                localStorage.setItem('user', JSON.stringify(data.user));
-            } catch (err) {
-                console.error('Google login failed:', err.message);
-            }
-        }}
-        onError={() => {
-            console.log('Login Failed');
-        }}
-    />
+    //             // Store token and user
+    //             localStorage.setItem('token', data.token);
+    //             localStorage.setItem('user', JSON.stringify(data.user));
+    //         } catch (err) {
+    //             console.error('Google login failed:', err.message);
+    //         }
+    //     }}
+    //     onError={() => {
+    //         console.log('Login Failed');
+    //     }}
+    // />
 
 
     return (
@@ -95,15 +94,18 @@ const Login = () => {
             <div className='loginpage'>
 
                 <div className='Login-left'>
+                    {/* <div className="leftcontent">
                     <h1>Craving For Food?</h1>
                     <h2>Login To find Your Favourite Food in Your City</h2>
+
+                    </div> */}
                 </div>
 
 
                 <div className="login-container">
-                    <h1>Login To Your Account</h1>
 
                     <div className='loginbox'>
+                    <h1>Login </h1>
                         <form onSubmit={handleSubmit(onSubmit)} className='login-form'>
 
                             <label>Email</label><br />

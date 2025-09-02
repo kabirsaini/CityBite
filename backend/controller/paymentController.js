@@ -25,7 +25,7 @@ const renderProductPage = async (req, res) => {
 
 const createOrder = async (req, res) => {
     try {
-        const amount = req.body.amount * 100; 
+        const amount = req.body.amount * 100;
 
         const options = {
             amount: amount,

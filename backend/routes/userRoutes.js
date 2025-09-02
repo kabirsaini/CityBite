@@ -1,7 +1,7 @@
 
 const express = require('express');
 
-const { register, login ,saveAddress,getAddress} = require('../controller/userController');
+const { register, login ,saveAddress,getAddress,Profile} = require('../controller/userController');
 const { googleLogin } = require('../controller/googleController');
 const { isAuthenticated, restrictTo } = require('../middlewares/auth.js'); //changed
 const upload = require('../middlewares/uploadMiddleware');
@@ -29,5 +29,7 @@ router.post("/saveAddress", isAuthenticated, saveAddress);
 
 // Get address
 router.get("/getAddress", isAuthenticated, getAddress);
+
+router.get('/profile', isAuthenticated,Profile);
 
 module.exports = router;

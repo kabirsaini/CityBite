@@ -1,46 +1,45 @@
 const Cart = require('../models/Cart');
 const Product = require('../models/Product');
 
-exports.addToCart = async (req,res)=>{
+exports.addToCart = async (req, res) => {
 
-    const {productId,quantity} = req.body;
+    const { productId, quantity } = req.body;
     const userId = req.user._id;
 
-    try{
+    try {
 
-        // Check if the cart already exists for the user
-        let cart = await Cart.findOne({userId});
-        if(!cart){
-            // Create a new cart if it doesn't exist
+
+        let cart = await Cart.findOne({ userId });
+        if (!cart) {
             cart = new Cart({
                 userId,
-                products: [{productId, quantity}],
+                products: [{ productId, quantity }],
                 totalPrice: 0
             });
         } else {
             // Check if the product already exists in the cart
             const existingProduct = cart.products.find(p => p.productId.toString() === productId);
-            if(existingProduct){
+            if (existingProduct) {
                 // Update the quantity of the existing product
                 existingProduct.quantity += quantity;
             } else {
                 // Add a new product to the cart
-                cart.products.push({productId, quantity});
+                cart.products.push({ productId, quantity });
             }
         }
         // Calculate the total price
         const product = await Product.findById(productId);
-        if(product){
+        if (product) {
             cart.totalPrice += product.price * quantity;
         }
         // Save the cart
         await cart.save();
-        res.status(200).json({message: "Product added to cart successfully", cart});
+        res.status(200).json({ message: "Product added to cart successfully", cart });
 
     }
-    catch(error){
+    catch (error) {
         console.error("Error adding to cart:", error);
-        res.status(500).json({message: "Internal server error"});
+        res.status(500).json({ message: "Internal server error" });
     }
 }
 
@@ -50,7 +49,7 @@ exports.getCart = async (req, res) => {
     try {
         // Find the cart for the user
         const cart = await Cart.findOne({ userId }).populate('products.productId');
-        
+
         if (!cart) {
             return res.status(404).json({ message: "Cart not found" });
         }
@@ -69,7 +68,7 @@ exports.updateCart = async (req, res) => {
 
     try {
         // Find the cart for the user
-       const cart = await Cart.findOne({ userId }).populate('products.productId');
+        const cart = await Cart.findOne({ userId }).populate('products.productId');
 
         if (!cart) {
             return res.status(404).json({ message: "Cart not found" });
@@ -78,12 +77,12 @@ exports.updateCart = async (req, res) => {
         // const productIndex = cart.products.findIndex(p => p.productId.toString() === productId);
         const productIndex = cart.products.findIndex(p => {
             const pid = p.productId?._id || p.productId;
-             return pid.toString() === productId;
-            });
+            return pid.toString() === productId;
+        });
 
-        if (productIndex === -1) {      
+        if (productIndex === -1) {
             return res.status(404).json({ message: "Product not found in cart" });
-        }   
+        }
         // Update the quantity
         if (quantity <= 0) {
             // Remove the product if quantity is 0 or less
@@ -97,7 +96,7 @@ exports.updateCart = async (req, res) => {
             const product = item.productId;
 
             // Fallback in case product is null or missing price
-             const price = product?.price || 0;
+            const price = product?.price || 0;
             return total + (price * item.quantity);
         }, 0);
         // Save the updated cart
@@ -116,7 +115,7 @@ exports.deleteCart = async (req, res) => {
     try {
         // Find and delete the cart for the user
         const cart = await Cart.findOneAndDelete({ userId });
-        
+
         if (!cart) {
             return res.status(404).json({ message: "Cart not found" });
         }

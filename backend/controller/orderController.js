@@ -3,6 +3,7 @@ const Cart = require('../models/Cart');
 const Product = require('../models/Product');
 const User = require('../models/User');
 const Restaurant = require('../models/Restaurant');
+const mongoose = require('mongoose');
 
 exports.createOrder = async (req, res) => {
   const userId = req.user._id;
@@ -43,6 +44,12 @@ exports.createOrder = async (req, res) => {
         products: items,
         totalPrice
       });
+
+      await User.findByIdAndUpdate(
+        userId,
+        { $push: { orders: order._id } },
+        { new: true }
+      );
 
       createdOrders.push(order);
     }
@@ -97,7 +104,7 @@ exports.getOrderById = async (req, res) => {
 
     try {
         // Find the order by ID
-        const order = await Order.findById(orderId).populate('userId', 'name email').populate('products.productId');
+        const order = await Order.findById(orderId).populate('userId', 'name email').populate('products.productId', 'name image price');
 
         if (!order) {
             return res.status(404).json({ message: "Order not found" });

@@ -1,9 +1,13 @@
 
+
 const OrderSuccess = () => {
     return (
-        <div>
-            <h2>Order Confirmed ✅ </h2>
+        <div className="order-success">
+            <h2 style={{ textAlign: 'center', marginTop: '20px' }}>Your Orders has been Confirmed ✅ </h2>
+            
         </div>
+
+        
     )
 }
 

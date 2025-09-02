@@ -1,58 +1,126 @@
 import '@/Components/User/Style/Navbar.css';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { IoMdCart } from "react-icons/io";
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 const Navbar = ({ cartCount }) => {
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState('');
+    const [open, setOpen] = useState(false);
     const navigate = useNavigate();
+    const dropdownRef = useRef(null);
 
+    // Close dropdown when clicking outside
     useEffect(() => {
-        const storedUser = localStorage.getItem("user");
-        if (storedUser) {
-            setUser(JSON.parse(storedUser));
-        }
+
+        const handleClickOutside = (event) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                setOpen(false);
+            }
+        };
+
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
     }, []);
 
+    useEffect(() => {
+        const fetchProfile = async () => {
+            try {
+                const token = localStorage.getItem("token");
+
+                const res = await fetch(`http://localhost:3000/api/users/profile`, {
+                    method: "GET",
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        "Content-Type": "application/json",
+                    },
+                });
+
+                if (!res.ok) {
+                    throw new Error("Failed to fetch profile");
+                }
+
+                const data = await res.json();
+                setUser(data.user);
+            } catch (err) {
+                console.error(err);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchProfile();
+    }, []);
+
+
+
+
+    const handledropdown = () => {
+        setOpen(!open);
+    }
     const handleLogout = () => {
-        localStorage.removeItem("token");
-        localStorage.removeItem("user");
-        setUser(null);
         toast.success("Logout successful ✅");
         navigate("/login");
     };
 
     return (
-        <>
-            <nav className="navbar">
-                <div className="navbar-logo">Gorato</div>
-                <ul className="navbar-links">
-                    <li><Link to="/MainPage">Home</Link></li>
+        <nav className="navbar">
+            <div className="navbar-logo">CityBite</div>
+            <ul className="navbar-links">
+                <li><Link to="/MainPage">Home</Link></li>
 
-                    
-                    {user && <li>Hello, {user.name}</li>}
+                <div className="dropdown-container" ref={dropdownRef}>
+                    <button
+                        onClick={handledropdown}
+                        className="dropdown-button"
+                    >
+                        Hello, {user.name} {open ? '⌃' : '⌄'}
+                    </button>
 
-                    {!user && (
-                        <li><Link to="/Signup">Sign Up</Link></li>
+
+                    {open && (
+                        <div className="dropdown-menu">
+                            <button
+                                onClick={() => {
+                                    navigate("/Profile");
+                                    setOpen(false);
+                                }}
+                                className="dropdown-item"
+                            >
+                                Profile
+                            </button>
+                            <button
+                                onClick={() => {
+                                    navigate("/MyOrders");
+                                    setOpen(false);
+                                }}
+                                className="dropdown-item"
+                            >
+                                My Orders
+                            </button>
+                            <button
+                                onClick={() => {
+                                    handleLogout();
+                                    setOpen(false);
+                                }}
+                                className="dropdown-item"
+                            >
+                                Logout
+                            </button>
+                        </div>
                     )}
+                </div>
 
-
-                    {user && (
-                        <li onClick={handleLogout} style={{ cursor: 'pointer' }}>
-                            Logout
-                        </li>
-                    )}
-
-                    <li>
-                        <Link to="/Cart">
-                            <IoMdCart />
-                            <span className="cart-count">{cartCount}</span>
-                        </Link>
-                    </li>
-                </ul>
-            </nav>
-        </>
+                <li>
+                    <Link to="/Cart" className="cart-link">
+                        <IoMdCart size="22px" />
+                        {cartCount > 0 && <span className="cart-count">{cartCount}</span>}
+                    </Link>
+                </li>
+            </ul>
+        </nav>
     );
 };
 

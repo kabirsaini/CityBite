@@ -52,12 +52,6 @@ const createRestaurant = async (req, res) => {
     }
 }
 
-
-
-
-
-
-
 const getAllRestaurants = async (req, res) => {
 
     try {
@@ -77,7 +71,9 @@ const getRestaurnatById = async (req, res) => {
     try {
 
         const { id } = req.params;
-        const restaurant = await resturant.findById(id).populate('products');
+        const restaurant = await resturant.findById(id)
+        .populate('products')
+        .populate("owner", "email");
         if (!restaurant) {
             return res.status(404).json({ message: "Restaurant not found" });
         }

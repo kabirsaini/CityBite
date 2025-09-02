@@ -10,6 +10,7 @@ import Checkout from './Components/User/CheckoutPage';
 import Mainpage from './Components/User/Mainpage';
 import Navbar from './Components/User/Navbar';
 import OrderSuccess from './Components/User/OrderSuccess';
+import Profile from './Components/User/Profile';
 import Restaurant from './Components/User/Restaurant';
 import Results from './Components/User/Results';
 import AddProducts from './Components/Vendor/AddProducts';
@@ -19,6 +20,7 @@ import VendorNavbar from './Components/Vendor/Navbar';
 import Orders from './Components/Vendor/Orders';
 import UpdateKYC from './Components/Vendor/UpdateKYC';
 import VendorKYC from './Components/Vendor/VendorKYC';
+import MyOrders from './Components/User/MyOrders';
 
 
 function App() {
@@ -28,6 +30,7 @@ function App() {
   const handleAddToCart = (item) => {
     setCartItems(prev => [...prev, item]);
   };
+  const clearCart = () => setCartItems([]);
 
   const handleRemoveFromCart = (indexToRemove) => {
     setCartItems(prev => prev.filter((_, index) => index !== indexToRemove));
@@ -47,6 +50,24 @@ function App() {
           <>
           <Navbar cartCount={cartItems.length} />
           <Mainpage />
+          </>
+      ),
+    },
+    {
+      path: '/Profile',
+      element: (
+          <>
+          <Navbar cartCount={cartItems.length} />
+          <Profile />
+          </>
+      ),
+    },
+    {
+      path: '/MyOrders',
+      element: (
+          <>
+          <Navbar cartCount={cartItems.length} />
+          <MyOrders />
           </>
       ),
     },
@@ -160,7 +181,7 @@ function App() {
       element: (
         <>
           <Navbar cartCount={cartItems.length} />
-          <Checkout />
+          <Checkout clearCart={clearCart}/>
         </>
       ),
     }

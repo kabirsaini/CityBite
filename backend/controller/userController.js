@@ -1,11 +1,19 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
+const Order = require("../models/Order");
+
 const bcrypt = require("bcrypt");
+
+
 
 // generating JWT token
 
 const signToken = (user) => {
-    return jwt.sign({ id: user._id }, process.env.SECRET_KEY, { expiresIn: "1d" });
+    return jwt.sign(
+        {id: user._id },
+        process.env.SECRET_KEY,
+        { expiresIn: "1d"}
+    );
 }
 
 // Register User
@@ -19,10 +27,8 @@ exports.register = async (req, res) => {
         });
 
         if (existingUser) {
-
             return res.status(400).json({ message: "User already exists" });
         }
-        // step:1 (validating the entries--> email, phone, password)
 
         if (!name || !email || !phone || !password) {
             return res.status(400).json({ message: "Please fill all the fields" });
@@ -37,10 +43,10 @@ exports.register = async (req, res) => {
             return res.status(400).json({ message: "Password must be at least 6 characters long" });
         }
 
-        // step:2 (hashing the password)
+        //hashing the password
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        // step:3 (creating the user)
+        // creating the user
 
         const user = await User.create({
             name,
@@ -50,7 +56,7 @@ exports.register = async (req, res) => {
             role: role
         });
 
-        // step:4 (generating the token)
+        //  generating the token
 
         const token = signToken(user);
 
@@ -71,7 +77,7 @@ exports.login = async (req, res) => {
     try {
         const { email, password } = req.body;
 
-        // step:1 (check if the user exists)
+        // check if the user exists
 
         const user = await User.findOne({
             email: email
@@ -82,7 +88,7 @@ exports.login = async (req, res) => {
             return res.status(401).json({ message: "Invalid credentials" });
         }
 
-        // step:2 (check if the password is correct)
+        // check if the password is correct
 
         const ispasswordValid = await bcrypt.compare(password, user.password);
 
@@ -91,7 +97,7 @@ exports.login = async (req, res) => {
             return res.status(401).json({ message: "Invalid credentials" });
         }
 
-        // step:3 (generate the token)
+        // generate the token
 
         const token = signToken(user);
 
@@ -149,4 +155,28 @@ exports.getAddress = async (req, res) => {
     }
 };
 
+exports.Profile = async (req, res) => {
+    try {
+        const user = await User.findById(req.user.id)
+        .select('-password') // exclude password
+        .populate("orders"); // populate orders
 
+        if (!user) return res.status(404).json({ message: 'User not found' });
+
+        res.json({
+            user: {
+                name: user.name,
+                email: user.email,
+                phone: user.phone,
+                address: user.address,
+                role: user.role,
+            },
+            orders: user.orders // populated orders
+        });
+
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Server error' });
+    }
+};

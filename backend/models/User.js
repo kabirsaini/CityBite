@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+
 const userSchema = new mongoose.Schema({
 
     name: {
@@ -25,7 +26,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    
+
     address: {
         street: { type: String, required: false },     // e.g., "123 Main Street"
         city: { type: String, required: false },     // e.g., "Ludhiana"
@@ -40,6 +41,10 @@ const userSchema = new mongoose.Schema({
         default: 'user',
         required: true,
     },
+    orders: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Order'
+    }]
 
 })
 

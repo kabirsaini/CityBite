@@ -67,7 +67,8 @@ const Restaurant = ({ onAddToCart }) => {
                 },
                 body: JSON.stringify({
                     productId: item._id,
-                    quantity: 1
+                    quantity: 1,
+                    city: restaurant.address?.city
                 })
             });
 
@@ -76,7 +77,7 @@ const Restaurant = ({ onAddToCart }) => {
             if (res.ok) {
                 toast.success("Item added to cart successfully!");
                 if (onAddToCart) {
-                    onAddToCart(item);
+                    onAddToCart({ ...item, city: restaurant.address?.city });
                 }
             } else {
                 console.error(data.message || "Failed to add to cart");
@@ -162,7 +163,7 @@ const Restaurant = ({ onAddToCart }) => {
                     {activeTab === 'contact' && (
                         <div>
                             <h3>Contact Us</h3>
-                            <p>Email: {restaurant.email || 'Not available'}</p>
+                            <p>Email: {restaurant.owner?.email || 'Not available'}</p>
                             <p>Phone: {restaurant.phone || 'Not available'}</p>
                         </div>
                     )}

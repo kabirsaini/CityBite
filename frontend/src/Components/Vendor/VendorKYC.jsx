@@ -50,6 +50,7 @@ const VendorKYC = () => {
     
         const submitData = new FormData();
         submitData.append("name", formData.name);
+        submitData.append("email", formData.email);
         submitData.append("description", formData.description);
         
         // Address as nested object
@@ -108,6 +109,7 @@ const VendorKYC = () => {
             >
                 <h2>Register Your Restaurant</h2>
                 <input type="text" name="name" placeholder="Restaurant Name" value={formData.name} onChange={handleChange} required />
+                <input type="text" name="email" placeholder='Email' value={formData.email} onChange={handleChange} required />
                 <textarea name="description" placeholder="Description" value={formData.description} onChange={handleChange} />
                 <input type="text" name="street" placeholder="Street" value={formData.street} onChange={handleChange} required />
                 <input type="text" name="city" placeholder="City" value={formData.city} onChange={handleChange} required />

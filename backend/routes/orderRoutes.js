@@ -22,3 +22,4 @@ router.delete('/:orderId', isAuthenticated, restrictTo('admin', 'vendor'), delet
 router.get('/vendor/orders', isAuthenticated, restrictTo('vendor'), getVendorOrders);
 
 module.exports = router;
+

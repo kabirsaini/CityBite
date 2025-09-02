@@ -1,3 +1,5 @@
+
+
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -5,6 +7,8 @@
     background-color: #CB202D;
     padding: 10px 20px;
     color: #fff;
+    overflow: visible;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .navbar-logo {
@@ -25,6 +29,73 @@
     transition: color 0.3s ease;
 }
 
+.navbar, .navbar-links {
+    overflow: visible;
+  }
+  
+
 .navbar-links li a:hover {
     color: #61dafb;
 }
+
+.dropdown-container {
+    position: relative;
+    overflow: visible !important;
+  }
+  
+  .dropdown-button {
+    display: flex;
+  align-items: center;
+  background-color: #c53030;
+  font-size: 15px;
+  margin-top: 1.5px;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-weight: 550;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  }
+  
+  .dropdown-menu {
+    position: absolute;
+  top: 100%;
+  right: 0;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  width: 220px;
+  z-index: 10;
+  margin-top: 8px;
+  overflow: hidden;
+  padding: 8px 0;
+  border: 1px solid #eaeaea;
+    
+  }
+  
+  
+  .dropdown-item {
+    display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  width: 100%;
+  text-align: left;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.15s ease;
+  color: #333;
+  }
+  
+  .dropdown-item:hover {
+    background-color: #f5f5f5;
+  }
+  
+  .cart-link{
+
+    width: 22px;
+    height: 22px;
+
+  }
