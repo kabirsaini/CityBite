@@ -1,4 +1,4 @@
-import "@/Components/User/Style/Mainpage.css";
+import "./Style/Mainpage.css";
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Slider from "react-slick";
