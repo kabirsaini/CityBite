@@ -30,9 +30,10 @@ router.get('/my', isAuthenticated, restrictTo("vendor"), async (req, res) => {
     if (!restaurant) return res.status(404).json({ message: "Restaurant not found" });
     res.status(200).json({ restaurant });
 });
+router.get('/city/:city', getRestaurantByCity);
+
 router.get('/:id', isAuthenticated, getRestaurnatById);
 
-router.get('/city/:city', getRestaurantByCity);
 
 
 // Update a restaurant
