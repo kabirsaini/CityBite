@@ -9,11 +9,7 @@ const orderRoutes = require('./routes/orderRoutes');
 const paymentRoutes = require('./routes/paymentRoutes');
 
 const app = express();
-app.use((req, res, next) => {
-    res.setHeader("Cross-Origin-Opener-Policy", "same-origin");
-    res.setHeader("Cross-Origin-Embedder-Policy", "require-corp");
-    next();
-});
+
 const db = require('./config/db');
 const cors = require('cors');
 const port = process.env.PORT || 3000;
@@ -25,6 +21,8 @@ app.use(cors({
     origin: ["https://food-website-frontend-j9ak.onrender.com", "http://localhost:5173"],
     credentials: true,
 }));
+
+app.options("*", cors());
 
 
 
