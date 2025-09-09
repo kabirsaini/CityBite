@@ -21,6 +21,7 @@ import Orders from './Components/Vendor/Orders';
 import UpdateKYC from './Components/Vendor/UpdateKYC';
 import VendorKYC from './Components/Vendor/VendorKYC';
 import MyOrders from './Components/User/MyOrders';
+import './Components/User/Style/Mainpage.css';
 
 
 function App() {
