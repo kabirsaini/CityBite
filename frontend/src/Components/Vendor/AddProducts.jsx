@@ -45,7 +45,7 @@ const AddProducts = () => {
         submitData.append("image", imageFile);
 
         try {
-            const res = await fetch("http://localhost:3000/api/products", {
+            const res = await fetch("https://food-website-backend-20z8.onrender.com/api/products", {
                 method: "POST",
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -79,7 +79,7 @@ const AddProducts = () => {
 
     const fetchProducts = async () => {
         try {
-            const res = await fetch("http://localhost:3000/api/products", {
+            const res = await fetch("https://food-website-backend-20z8.onrender.com/api/products", {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -98,7 +98,7 @@ const AddProducts = () => {
 
     const markAvailable = async (productId) => {
         try {
-            const res = await fetch(`http://localhost:3000/api/products/${productId}`, {
+            const res = await fetch(`https://food-website-backend-20z8.onrender.com/api/products/${productId}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -124,7 +124,7 @@ const AddProducts = () => {
 
     const markUnavailable = async (productId) => {
         try {
-            const res = await fetch(`http://localhost:3000/api/products/${productId}`, {
+            const res = await fetch(`https://food-website-backend-20z8.onrender.com/api/products/${productId}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -148,7 +148,7 @@ const AddProducts = () => {
     };
     const deleteProduct = async (productId) => {
         try {
-            const response = await fetch(`http://localhost:3000/api/products/${productId}`, {
+            const response = await fetch(`https://food-website-backend-20z8.onrender.com/api/products/${productId}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
@@ -215,7 +215,7 @@ const AddProducts = () => {
                                 className={`product-card ${!product.isAvailable ? 'disabled' : ''}`}
                             >
                                 <img
-                                    src={`http://localhost:3000/${product.image}`}
+                                    src={`https://food-website-backend-20z8.onrender.com/${product.image}`}
                                     alt={product.name}
                                     className="product-image"
                                 />

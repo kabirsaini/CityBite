@@ -21,7 +21,7 @@ const Cart = ({ cartItems, onRemoveFromCart }) => {
     useEffect(() => {
         const fetchcityRestaurants = async () => {
             try {
-                const res = await fetch(`http://localhost:3000/api/restaurants/city/${city}`);
+                const res = await fetch(`https://food-website-backend-20z8.onrender.com/api/restaurants/city/${city}`);
                 const data = await res.json();
 
                 if (res.ok) {
@@ -42,7 +42,7 @@ const Cart = ({ cartItems, onRemoveFromCart }) => {
 
     const handleRestaurantClick = async (id) => {
         try {
-            const res = await fetch(`http://localhost:3000/api/restaurants/click/${id}`, {
+            const res = await fetch(`https://food-website-backend-20z8.onrender.com/api/restaurants/click/${id}`, {
                 method: 'PUT',
             });
 
@@ -73,7 +73,7 @@ const Cart = ({ cartItems, onRemoveFromCart }) => {
                             {cartItems.map((item, index) => (
                                 <li key={index} className="cart-item">
                                     <img
-                                        src={`http://localhost:3000/${item.image}`}
+                                        src={`https://food-website-backend-20z8.onrender.com/${item.image}`}
                                         alt={item.name}
                                     />
                                     <span>{item.name}</span>
@@ -116,7 +116,7 @@ const Cart = ({ cartItems, onRemoveFromCart }) => {
                                     style={{ cursor: 'pointer' }}
                                 >
                                     <div className="restaurant-image">
-                                        <img src={`http://localhost:3000/${restaurant.image}`} alt={restaurant.name} />
+                                        <img src={`https://food-website-backend-20z8.onrender.com/${restaurant.image}`} alt={restaurant.name} />
                                     </div>
                                     <h2 className="restaurant-name">{restaurant.name}</h2>
                                     <p className="restaurant-description">{restaurant.categories}</p>

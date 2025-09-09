@@ -77,7 +77,7 @@ const VendorKYC = () => {
         submitData.append("image", imageFile);
     
         try {
-            const res = await fetch("http://localhost:3000/api/restaurants", {
+            const res = await fetch("https://food-website-backend-20z8.onrender.com/api/restaurants", {
                 method: "POST",
                 headers: {
                     Authorization: `Bearer ${token}`

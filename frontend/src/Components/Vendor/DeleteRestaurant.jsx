@@ -13,7 +13,7 @@ const DeleteRestaurant = () => {
         // Fetch vendor's own restaurant
         const fetchMyRestaurant = async () => {
             try {
-                const res = await fetch("http://localhost:3000/api/restaurants/my", {
+                const res = await fetch("https://food-website-backend-20z8.onrender.com/api/restaurants/my", {
                     method: "GET",
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -44,7 +44,7 @@ const DeleteRestaurant = () => {
         if (!confirm) return;
 
         try {
-            const res = await fetch(`http://localhost:3000/api/restaurants/${restaurant._id}`, {
+            const res = await fetch(`https://food-website-backend-20z8.onrender.com/api/restaurants/${restaurant._id}`, {
                 method: "DELETE",
                 headers: {
                     Authorization: `Bearer ${token}`,

@@ -10,7 +10,7 @@ const MyOrders = () => {
         const fetchProfile = async () => {
             try {
                 const token = localStorage.getItem("token");
-                const res = await fetch(`http://localhost:3000/api/users/profile`, {
+                const res = await fetch(`https://food-website-backend-20z8.onrender.com/api/users/profile`, {
                     method: "GET",
                     headers: {
                         Authorization: `Bearer ${token}`,

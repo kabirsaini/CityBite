@@ -18,7 +18,7 @@ const Results = ({ city2 }) => {
                 const cityToFetch = city2 || city;
                 if (!cityToFetch) return;
 
-                const res = await fetch(`http://localhost:3000/api/restaurants/city/${cityToFetch}`);
+                const res = await fetch(`https://food-website-backend-20z8.onrender.com/api/restaurants/city/${cityToFetch}`);
                 const data = await res.json();
 
                 if (res.ok) {
@@ -40,7 +40,7 @@ const Results = ({ city2 }) => {
 
     const handleRestaurantClick = async (id) => {
         try {
-            const res = await fetch(`http://localhost:3000/api/restaurants/click/${id}`, {
+            const res = await fetch(`https://food-website-backend-20z8.onrender.com/api/restaurants/click/${id}`, {
                 method: 'PUT',
             });
 
@@ -175,7 +175,7 @@ const Results = ({ city2 }) => {
                                 style={{ cursor: 'pointer' }}
                             >
                                 <div className="restaurant-image">
-                                <img src={`http://localhost:3000/${restaurant.image}`} alt={restaurant.name} />
+                                <img src={`https://food-website-backend-20z8.onrender.com/${restaurant.image}`} alt={restaurant.name} />
                                 </div>
                                 <div className='details'>
                                     <h2 className="restaurant1-name">{restaurant.name}</h2>

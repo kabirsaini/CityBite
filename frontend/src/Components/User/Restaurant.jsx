@@ -14,7 +14,7 @@ const Restaurant = ({ onAddToCart }) => {
         const fetchRestaurantAndProducts = async () => {
             try {
                 const token = localStorage.getItem("token");
-                const res = await fetch(`http://localhost:3000/api/restaurants/${id}`, {
+                const res = await fetch(`https://food-website-backend-20z8.onrender.com/api/restaurants/${id}`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                         "Content-Type": "application/json"
@@ -28,7 +28,7 @@ const Restaurant = ({ onAddToCart }) => {
                     setReviews(data.reviews || []);
 
                     // Only fetchinf product when restaurant data is avaialble
-                    const productRes = await fetch(`http://localhost:3000/api/products/restaurant/${data.restaurant._id}`, {
+                    const productRes = await fetch(`https://food-website-backend-20z8.onrender.com/api/products/restaurant/${data.restaurant._id}`, {
                         headers: {
                             Authorization: `Bearer ${token}`,
                             "Content-Type": "application/json"
@@ -59,7 +59,7 @@ const Restaurant = ({ onAddToCart }) => {
     const handleAddToCart = async (item) => {
         try {
             const token = localStorage.getItem("token");
-            const res = await fetch("http://localhost:3000/api/cart", {
+            const res = await fetch("https://food-website-backend-20z8.onrender.com/api/cart", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -119,7 +119,7 @@ const Restaurant = ({ onAddToCart }) => {
                     {activeTab === 'about' && (
                         <>
                             <div className="restaurant-image">
-                                <img src={`http://localhost:3000/${restaurant.image}`} alt={restaurant.name} />
+                                <img src={`https://food-website-backend-20z8.onrender.com/${restaurant.image}`} alt={restaurant.name} />
                             </div>
                         <div>
                             <h3>About Us</h3>
@@ -138,7 +138,7 @@ const Restaurant = ({ onAddToCart }) => {
                                         {products.map((item, index) => (
                                             <div className={`menu-item ${!item.isAvailable ? 'unavailable' : ''}`} key={index}>
                                                 <img
-                                                    src={`http://localhost:3000/${item.image}`}
+                                                    src={`https://food-website-backend-20z8.onrender.com/${item.image}`}
                                                     alt={item.name}
                                                 />
                                                 <div className="item-info">

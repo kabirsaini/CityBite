@@ -106,7 +106,7 @@ const CheckoutPage = (props) => {
             return;
         }
 
-        const response = await fetch('http://localhost:3000/api/payments/createOrder', {
+        const response = await fetch('https://food-website-backend-20z8.onrender.com/api/payments/createOrder', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ amount: total }),
@@ -125,7 +125,7 @@ const CheckoutPage = (props) => {
             handler: async function (response) {
                 toast.success("Payment successfull! ✅");
                 try {
-                    const orderRes = await fetch('http://localhost:3000/api/orders', {
+                    const orderRes = await fetch('https://food-website-backend-20z8.onrender.com/api/orders', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',

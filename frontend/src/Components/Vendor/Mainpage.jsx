@@ -20,7 +20,7 @@ const Mainpage = () => {
 
         const fetchVendor = async () => {
             try {
-                const res = await fetch('http://localhost:3000/api/users/me', {
+                const res = await fetch('https://food-website-backend-20z8.onrender.com/api/users/me', {
                     method: 'GET',
                     credentials: 'include',
                     headers: {
@@ -39,7 +39,7 @@ const Mainpage = () => {
 
         const fetchRestaurant = async () => {
             try {
-                const res = await fetch("http://localhost:3000/api/restaurants/my", {
+                const res = await fetch("https://food-website-backend-20z8.onrender.com/api/restaurants/my", {
                     method: "GET",
                     headers: {
                         Authorization: `Bearer ${token}`
@@ -68,7 +68,7 @@ const Mainpage = () => {
 
         const fetchVendorOrders = async () => {
             try {
-                const res = await fetch('http://localhost:3000/api/orders/vendor/orders', {
+                const res = await fetch('https://food-website-backend-20z8.onrender.com/api/orders/vendor/orders', {
                     headers: {
                         'Authorization': `Bearer ${token}`,
                         'Content-Type': 'application/json',
@@ -113,7 +113,7 @@ const Mainpage = () => {
         try {
             const token = localStorage.getItem("token"); // or however you store it
 
-            const res = await fetch(`http://localhost:3000/api/orders/${orderId}/status`, {
+            const res = await fetch(`https://food-website-backend-20z8.onrender.com/api/orders/${orderId}/status`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",

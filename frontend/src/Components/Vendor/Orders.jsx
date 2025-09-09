@@ -7,7 +7,7 @@ const VendorOrders = () => {
     useEffect(() => {
         const fetchVendorOrders = async () => {
             try {
-                const res = await fetch('http://localhost:3000/api/orders/vendor/orders', {
+                const res = await fetch('https://food-website-backend-20z8.onrender.com/api/orders/vendor/orders', {
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem('token')}`,
                         'Content-Type': 'application/json',

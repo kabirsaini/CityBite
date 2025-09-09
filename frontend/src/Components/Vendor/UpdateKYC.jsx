@@ -30,7 +30,7 @@ const UpdateKYC = () => {
             try {
                 const token = localStorage.getItem("token");
 
-                const res = await fetch("http://localhost:3000/api/restaurants/my", {
+                const res = await fetch("https://food-website-backend-20z8.onrender.com/api/restaurants/my", {
                     method: "GET",
                     headers: {
                         Authorization: `Bearer ${token}`
@@ -120,7 +120,7 @@ const UpdateKYC = () => {
         }
 
         try {
-            const res = await fetch(`http://localhost:3000/api/restaurants/${restaurantId}`, {
+            const res = await fetch(`https://food-website-backend-20z8.onrender.com/api/restaurants/${restaurantId}`, {
                 method: "PUT",
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -165,7 +165,7 @@ const UpdateKYC = () => {
                     <div>
                         <p>Current Image:</p>
                         <img 
-                            src={`http://localhost:3000/${currentImage}`} 
+                            src={`https://food-website-backend-20z8.onrender.com/${currentImage}`} 
                             alt="Current" 
                             style={{ maxWidth: '100%', height: 'auto' }} 
                             onError={(e) => {

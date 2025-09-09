@@ -16,7 +16,7 @@ const Login = () => {
 
     const onSubmit = async (data) => {
         try {
-            const res = await fetch('http://localhost:3000/api/users/login', {
+            const res = await fetch('https://food-website-backend-20z8.onrender.com/api/users/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -147,7 +147,7 @@ const Login = () => {
                             <GoogleLogin
                                 onSuccess={async (credentialResponse) => {
                                     try {
-                                        const res = await fetch('http://localhost:5000/api/users/google-login', {
+                                        const res = await fetch('https://food-website-backend-20z8.onrender.com/api/users/google-login', {
                                             method: 'POST',
                                             headers: {
                                                 'Content-Type': 'application/json',
