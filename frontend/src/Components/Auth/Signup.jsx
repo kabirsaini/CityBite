@@ -1,4 +1,4 @@
-import "../User/Style/Login.css";
+import "../User/Style/Signup.css";
 
 import { GoogleLogin } from '@react-oauth/google';
 import { useForm } from 'react-hook-form';

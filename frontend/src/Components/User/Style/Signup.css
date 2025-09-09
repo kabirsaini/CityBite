@@ -14,7 +14,7 @@
 .Login-left {
   width: 50%;
   background-color: #CB202D;
-  background-image : url("/MainPhoto.png");
+  background-image : url("MainPhoto.png");
   background-size : cover;
   background-position: center;   /* centers main part */
   background-repeat: no-repeat;  /* prevent tiling */
