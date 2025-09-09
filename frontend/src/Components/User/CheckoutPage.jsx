@@ -190,12 +190,14 @@ const CheckoutPage = (props) => {
 
                         {showForm && (
                             <MiniPopup onClose={() => setShowForm(false)}>
+                                <div class="address-form">
                                 <h4>{savedAddress ? 'Update Address' : 'Add Address'}</h4>
                                 <input type="text" name="street" placeholder="Street" value={formAddress.street} onChange={handleChange} />
                                 <input type="text" name="city" placeholder="City" value={formAddress.city} onChange={handleChange} />
                                 <input type="text" name="state" placeholder="State" value={formAddress.state} onChange={handleChange} />
                                 <input type="text" name="pincode" placeholder="Pincode" value={formAddress.pincode} onChange={handleChange} />
                                 <button onClick={handleUpdate}>Save</button>
+                                </div>
                             </MiniPopup>
                         )}
                     </div>

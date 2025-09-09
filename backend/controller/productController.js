@@ -71,7 +71,11 @@ exports.getAllProducts = async (req, res) => {
     // step:1 (get all products)
 
     try {
-        const products = await Product.find();
+        const restaurant = await Restaurant.findOne({ owner: req.user._id });
+        if (!restaurant) {
+            return res.status(404).json({ message: "You must register your restaurant first." });
+        }
+        const products = await Product.find({ restaurantId: restaurant._id });
         res.status(200).json({ products });
         
     }

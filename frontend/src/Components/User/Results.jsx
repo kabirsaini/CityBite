@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { FaSearch } from "react-icons/fa";
 
 
-const Results = ({city2}) => {
+const Results = ({ city2 }) => {
     const { city } = useParams();
     const navigate = useNavigate();
     const [restaurants, setRestaurants] = useState([]);
@@ -16,7 +16,7 @@ const Results = ({city2}) => {
         const fetchRestaurantsByCity = async () => {
             try {
                 const cityToFetch = city2 || city;
-            if (!cityToFetch) return;
+                if (!cityToFetch) return;
 
                 const res = await fetch(`http://localhost:3000/api/restaurants/city/${cityToFetch}`);
                 const data = await res.json();
@@ -35,7 +35,7 @@ const Results = ({city2}) => {
         };
 
         fetchRestaurantsByCity();
-    }, [city,city2]);
+    }, [city, city2]);
 
 
     const handleRestaurantClick = async (id) => {
@@ -67,6 +67,71 @@ const Results = ({city2}) => {
         }
     }
 
+    const temp = [
+        {
+            _id: "1",
+            name: "Spice Hub",
+            categories: "Indian, Vegetarian",
+            address: { city: "Delhi" }
+        },
+        {
+            _id: "2",
+            name: "Pasta Palace",
+            categories: "Italian, Continental",
+            address: { city: "Mumbai" }
+        },
+        {
+            _id: "3",
+            name: "Sushi World",
+            categories: "Japanese, Seafood",
+            address: { city: "Bangalore" }
+        },
+        {
+            _id: "4",
+            name: "Taco Town",
+            categories: "Mexican, Fast Food",
+            address: { city: "Hyderabad" }
+        },
+        {
+            _id: "5",
+            name: "Burger House",
+            categories: "American, Fast Food",
+            address: { city: "Chennai" }
+        },
+        {
+            _id: "6",
+            name: "Curry Corner",
+            categories: "Indian, Mughlai",
+            address: { city: "Jaipur" }
+        },
+        {
+            _id: "7",
+            name: "Dragon Express",
+            categories: "Chinese, Thai",
+            address: { city: "Kolkata" }
+        },
+        {
+            _id: "8",
+            name: "Grill & Chill",
+            categories: "BBQ, Steaks",
+            address: { city: "Pune" }
+        },
+        {
+            _id: "9",
+            name: "Green Bowl",
+            categories: "Healthy, Vegan",
+            address: { city: "Ahmedabad" }
+        },
+        {
+            _id: "10",
+            name: "Ocean Breeze",
+            categories: "Seafood, Continental",
+            address: { city: "Goa" }
+        }
+    ];
+
+
+
 
 
     return (
@@ -93,7 +158,7 @@ const Results = ({city2}) => {
 
                 </div>
 
-                <h2>Best Restaurants in "{city}"</h2>
+                <h2 className='top-head'>Best Restaurants in {city}</h2>
 
                 {loading ? (
                     <p>Loading...</p>
@@ -104,19 +169,23 @@ const Results = ({city2}) => {
                         {restaurants.map((restaurant) => (
                             <div
                                 key={restaurant._id}
-                                className="restaurant-card"
+                                className="restaurant-card1"
                                 onClick={() => handleRestaurantClick(restaurant._id)}
 
                                 style={{ cursor: 'pointer' }}
                             >
                                 <div className="restaurant-image">
-                                    <img src={`http://localhost:3000/${restaurant.image}`} alt={restaurant.name} />
+                                <img src={`http://localhost:3000/${restaurant.image}`} alt={restaurant.name} />
                                 </div>
-                                <h2 className="restaurant-name">{restaurant.name}</h2>
-                                <p className="restaurant-description">{restaurant.description}</p>
-                                <p className="restaurant-city">
-                                    <strong>City:</strong> {restaurant.address?.city}
-                                </p>
+                                <div className='details'>
+                                    <h2 className="restaurant1-name">{restaurant.name}</h2>
+                                    <p className="restaurant1-category">
+                                        {restaurant.categories}
+                                    </p>
+                                    <p className="restaurant1-city">
+                                        <strong>City:</strong> {restaurant.address?.city}
+                                    </p>
+                                </div>
                             </div>
                         ))}
                     </div>

@@ -117,10 +117,16 @@ const Restaurant = ({ onAddToCart }) => {
 
                 <div className="tab-content">
                     {activeTab === 'about' && (
+                        <>
+                            <div className="restaurant-image">
+                                <img src={`http://localhost:3000/${restaurant.image}`} alt={restaurant.name} />
+                            </div>
                         <div>
                             <h3>About Us</h3>
                             <p>{restaurant.description || "Description not available."}</p>
                         </div>
+                        </>
+
                     )}
 
                     {activeTab === 'menu' && (

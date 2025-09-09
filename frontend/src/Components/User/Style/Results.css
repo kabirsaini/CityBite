@@ -7,16 +7,17 @@
     align-items: center;
     margin: 0 auto;
 }
-.restaurant-card{
-    width: 30%;
-    height: 200px;
-    display:flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid black;
-    border-radius: 10px;
-} */
+    */
+.restaurant-card1{
+    background-color: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+} 
+.restaurant-card1:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  }
 
 
 /* Outer container for the results page */
@@ -29,7 +30,7 @@
 }
 
 /* Heading for the city */
-.results-page h2 {
+.top-head {
     /* font-size: 32px; */
     /* font-weight: 600; */
     color: #333;
@@ -45,16 +46,23 @@
 }
 
 /* Container for all restaurant cards */
-.restaurant-cont2 {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px;
-    padding: 0 20px;
-    justify-content: center;
-}
+
+    .restaurant-cont2 {
+        display: grid;
+        grid-template-columns: repeat(3, 400px); /* 3 cards per row */
+        gap: 30px; /* spacing between cards */
+        justify-items: center; /* center each card horizontally */
+        align-items: start; /* align cards from the top */
+        padding: 20px;
+      }
+      
+    
+
 
 /* Optional: Smooth animation on render */
 .restaurant-cont2 > div {
+    height: 300px;
+    width: 350px;
     animation: fadeIn 0.4s ease-in-out;
 }
 
@@ -102,6 +110,19 @@
   .find-input2:focus {
     background: #fff;
     box-shadow: inset 0 0 6px rgba(0, 123, 255, 0.3);
+  }
+
+  .details{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 5px;
+    padding: 5px;
+  }
+
+  .restaurant1-name{
+    margin: 0px;
   }
   
 
