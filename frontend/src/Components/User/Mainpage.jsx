@@ -9,10 +9,10 @@ import { FaSearch } from "react-icons/fa";
 
 function Mainpage() {
   const images = [
-    "north-indian.png",
-    "east-indian.png",
-    "west-indian.webp",
-    "south-indian.webp",
+    "/north-indian.png",
+    "/east-indian.png",
+    "/west-indian.webp",
+    "/south-indian.webp",
   ];
 
   const settings = {
@@ -28,21 +28,21 @@ function Mainpage() {
   const Iconic = [
     {
       id: 1,
-      image: "/HyderabadiBiryani.png",
+      image: "HyderabadiBiryani.png",
       name: "Hyderabadi Biryani",
       description: "A fragrant rice dish with marinated meat, originating from Hyderabad.",
       city: "Hyderabad",
     },
     {
       id: 2,
-      image: "/Rosogulla.png",
+      image: "Rosogulla.png",
       name: "Rosogulla",
       description: "A spongy and sweet dessert made from chhena, originating from West Bengal.",
       city: "Kolkata",
     },
     {
       id: 3,
-      image: "/Dhokla.png",
+      image: "Dhokla.png",
       name: "Dhokla",
       description: "A steamed rice cake originating from Gujarat.",
       city: "Ahmedabad",
@@ -50,35 +50,35 @@ function Mainpage() {
 
     {
       id: 4,
-      image: "/CholeKulche.png",
+      image: "CholeKulche.png",
       name: "Chole Kulche",
       description: "A type of leavened Indian bread, originating from Punjab.",
       city: "Amritsar",
     },
     {
       id: 5,
-      image: "/ButterChicken.png",
+      image: "ButterChicken.png",
       name: "Butter Chicken",
       description: "A creamy tomato-based curry with tender chicken pieces, originating from Delhi.",
       city: "Delhi",
     },
     {
       id: 6,
-      image: "/Idli.webp",
+      image: "Idli.webp",
       name: "Idli",
       description: "A soft and fluffy steamed rice cake, originating from South India.",
       city: "Bangalore",
     },
     {
       id: 7,
-      image: "/Dal-Bhati.png",
+      image: "Dal-Bhati.png",
       name: "Dal Batti Churma",
       description: "A traditional Rajasthani dish consisting of lentils, baked wheat balls, and sweetened crushed wheat.",
       city: "Jaipur",
     },
     {
       id: 8,
-      image: "/Vada-Pao.jpg",
+      image: "Vada-Pao.jpg",
       name: "Vada Pao",
       description: "A popular street food from Maharashtra, consisting of a spicy potato fritter sandwiched in a bread roll.",
       city: "Mumbai",
@@ -89,54 +89,54 @@ function Mainpage() {
   const Cities = [
     {
       id: 1,
-      image: "/delhi-icon.png",
+      image: "delhi-icon.png",
       name: "Delhi",
     },
     {
       id: 2,
-      image: "/banglore.png",
+      image: "banglore.png",
       name: "Bangalore",
     },
     {
       id: 3,
-      image: "/mumbai.png",
+      image: "mumbai.png",
       name: "Mumbai",
     },
 
     {
       id: 4,
-      image: "/chennai.png",
+      image: "chennai.png",
       name: "Chennai",
     },
     {
       id: 5,
-      image: "/kolkata.png",
+      image: "kolkata.png",
       name: "Kolkata",
 
     },
     {
       id: 6,
-      image: "/hyderabad.png",
+      image: "hyderabad.png",
       name: "Hyderabad",
     },
     {
       id:7,
-      image: "/amritsar.png",
+      image: "amritsar.png",
       name: "Amritsar",
     },
     {
       id:8,
-      image: "/jaipur.png",
+      image: "jaipur.png",
       name: "Jaipur",
     },
     {
       id:8,
-      image: "/vishakhapatnam.png",
+      image: "vishakhapatnam.png",
       name: "Vishakhapatnam",
     },
     {
       id:9,
-      image: "/udaipur.png",
+      image: "udaipur.png",
       name: "Udaipur",
     }
 
