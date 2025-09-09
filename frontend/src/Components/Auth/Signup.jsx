@@ -1,4 +1,5 @@
-import '@/Components/User/Style/Signup.css'; // new CSS file
+import "../User/Style/Login.css";
+
 import { GoogleLogin } from '@react-oauth/google';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
