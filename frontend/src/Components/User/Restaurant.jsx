@@ -119,7 +119,7 @@ const Restaurant = ({ onAddToCart }) => {
                     {activeTab === 'about' && (
                         <>
                             <div className="restaurant-image">
-                                <img src={`https://food-website-backend-20z8.onrender.com/${restaurant.image}`} alt={restaurant.name} />
+                                <img src={restaurant.image} alt={restaurant.name} />
                             </div>
                         <div>
                             <h3>About Us</h3>
