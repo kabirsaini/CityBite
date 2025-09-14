@@ -3,7 +3,7 @@ const router = express.Router();
 const Restaurant = require('../models/Restaurant');
 
 
-const upload = require('../middlewares/uploadResMiddleware');
+const { uploadRestaurant } = require("../middlewares/multer");
 
 
 const { createRestaurant, getAllRestaurants,
@@ -17,7 +17,7 @@ router.post(
     '/',
     isAuthenticated,
     restrictTo("vendor"),
-    upload.single('image'), // ✅ must be here
+    uploadRestaurant.single('image'), // ✅ must be here
     createRestaurant
 );
 
@@ -37,7 +37,7 @@ router.get('/:id', isAuthenticated, getRestaurnatById);
 
 
 // Update a restaurant
-router.put('/:restaurantId', isAuthenticated,upload.single('image'), restrictTo("vendor"), updateRestaurant);
+router.put('/:restaurantId', isAuthenticated,uploadRestaurant.single('image'), restrictTo("vendor"), updateRestaurant);
 
 // Delete a restaurant
 router.delete('/:id', isAuthenticated, restrictTo("vendor"), deleteRestaurant);

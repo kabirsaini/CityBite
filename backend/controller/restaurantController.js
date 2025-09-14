@@ -4,6 +4,7 @@ const resturant = require('../models/Restaurant');
 // const  {isAuthenticated} = require('../middlewares/auth');
 const User = require('../models/User');
 
+
 const createRestaurant = async (req, res) => {
     try {
 
@@ -21,6 +22,7 @@ const createRestaurant = async (req, res) => {
 
 
         const { name, description, address, location, categories, openingHours, gsti, phone } = req.body;
+        
         const image = req.file ? req.file.path : null;
 
         // Validate required fields
