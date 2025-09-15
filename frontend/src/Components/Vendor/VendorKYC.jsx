@@ -121,7 +121,7 @@ const VendorKYC = () => {
             >
                 <h2>Register Your Restaurant</h2>
                 <input type="text" name="name" placeholder="Restaurant Name" value={formData.name} onChange={handleChange} required />
-                <input type="text" name="email" placeholder='Email' value={formData.email} onChange={handleChange} required />
+                {/* <input type="text" name="email" placeholder='Email' value={formData.email} onChange={handleChange} required /> */}
                 <input type="text" name="phone" placeholder="Phone Number" value={formData.phone} onChange={handleChange} required />
                 <textarea name="description" placeholder="Description" value={formData.description} onChange={handleChange} />
                 <input type="text" name="street" placeholder="Street" value={formData.street} onChange={handleChange} required />
@@ -174,8 +174,8 @@ const VendorKYC = () => {
                 <input type="text" name="openingTime" placeholder="Opening Time (e.g. 10:00 AM)" value={formData.openingTime} onChange={handleChange} required />
                 <input type="text" name="closingTime" placeholder="Closing Time (e.g. 10:00 PM)" value={formData.closingTime} onChange={handleChange} required />
                 <input type="text" name="gsti" placeholder="GSTIN Number" value={formData.gsti} onChange={handleChange} required />
-                {/* <input type="text" name="latitude" placeholder="Latitude" value={formData.latitude} onChange={handleChange} required />
-                <input type="text" name="longitude" placeholder="Longitude" value={formData.longitude} onChange={handleChange} required /> */}
+                <input type="text" name="latitude" placeholder="Latitude" value={formData.latitude} onChange={handleChange} required />
+                <input type="text" name="longitude" placeholder="Longitude" value={formData.longitude} onChange={handleChange} required />
 
                 <button type="submit">Submit</button>
             </form>

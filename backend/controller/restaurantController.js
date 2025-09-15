@@ -25,14 +25,14 @@ const createRestaurant = async (req, res) => {
 
         const { name, description, address, location, categories, openingHours, gsti, phone } = req.body;
 
+    
+
         let categoriesArray = [];
         if (Array.isArray(categories)) {
             categoriesArray = categories;
         } else if (categories) {
             categoriesArray = [categories];
         }
-        console.log("Processed categoriesArray:", categoriesArray);
-        console.log("CategoriesArray length:", categoriesArray.length);
 
 
         const image = req.file ? req.file.path : null;
