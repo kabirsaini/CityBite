@@ -9,6 +9,7 @@ const createRestaurant = async (req, res) => {
     try {
 
         // checking the existence of the user
+
         const user = await User.findById(req.user._id);
         if (!user) {
             return res.status(404).json({ message: "User not found" });
@@ -24,7 +25,7 @@ const createRestaurant = async (req, res) => {
         const { name, description, address, location, categories, openingHours, gsti, phone } = req.body;
         
         const image = req.file ? req.file.path : null;
-
+        
         // Validate required fields
         if (!name || !address || !location || !categories || !openingHours) {
             return res.status(400).json({ message: "Please fill all the required fields" });
@@ -47,6 +48,8 @@ const createRestaurant = async (req, res) => {
         await User.findByIdAndUpdate(req.user._id, { restaurantRegistered: true });
 
         res.status(201).json({ message: "Restaurant created successfully", restaurant });
+
+
     } catch (error) {
         console.error("Create Restaurant Error:", error);
         console.error(error);

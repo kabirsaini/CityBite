@@ -40,6 +40,7 @@ const VendorKYC = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        console.log("🚀 handleSubmit triggered"); 
     
         if (!imageFile) {
             toast.error("Please upload an image");
@@ -50,7 +51,7 @@ const VendorKYC = () => {
     
         const submitData = new FormData();
         submitData.append("name", formData.name);
-        submitData.append("email", formData.email);
+
         submitData.append("description", formData.description);
         
         // Address as nested object
@@ -75,10 +76,11 @@ const VendorKYC = () => {
         submitData.append("gsti", formData.gsti);
         submitData.append("phone", formData.phone);
         submitData.append("image", imageFile);
-    
+
         try {
             const res = await fetch("https://food-website-backend-20z8.onrender.com/api/restaurants", {
                 method: "POST",
+
                 headers: {
                     Authorization: `Bearer ${token}`
                     // Don't set Content-Type - let the browser set it automatically

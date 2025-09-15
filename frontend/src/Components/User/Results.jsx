@@ -111,7 +111,7 @@ const Results = ({ city2 }) => {
                                 style={{ cursor: 'pointer' }}
                             >
                                 <div className="restaurant-image">
-                                <img src={`https://food-website-backend-20z8.onrender.com/${restaurant.image}`} alt={restaurant.name} />
+                                <img src={restaurant.image} alt={restaurant.name} />
                                 </div>
                                 <div className='details'>
                                     <h2 className="restaurant1-name">{restaurant.name}</h2>

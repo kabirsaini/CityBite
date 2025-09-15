@@ -47,7 +47,6 @@ exports.register = async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, 10);
 
         // creating the user
-
         const user = await User.create({
             name,
             email,
@@ -57,7 +56,6 @@ exports.register = async (req, res) => {
         });
 
         //  generating the token
-
         const token = signToken(user);
 
         res.status(201).json({ token, user });

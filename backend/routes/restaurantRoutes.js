@@ -15,9 +15,13 @@ const { isAuthenticated, restrictTo } = require('../middlewares/auth');
 // Create a new restaurant
 router.post(
     '/',
+    (req, res, next) => {
+        console.log("📥 Incoming POST /api/restaurants");
+        next();
+      },
     isAuthenticated,
+    uploadRestaurant.single("image"),
     restrictTo("vendor"),
-    uploadRestaurant.single('image'), // ✅ must be here
     createRestaurant
 );
 
@@ -30,14 +34,17 @@ router.get('/my', isAuthenticated, restrictTo("vendor"), async (req, res) => {
     if (!restaurant) return res.status(404).json({ message: "Restaurant not found" });
     res.status(200).json({ restaurant });
 });
+
+
 router.get('/city/:city', getRestaurantByCity);
+
 
 router.get('/:id', isAuthenticated, getRestaurnatById);
 
 
 
 // Update a restaurant
-router.put('/:restaurantId', isAuthenticated,uploadRestaurant.single('image'), restrictTo("vendor"), updateRestaurant);
+router.put('/:restaurantId', isAuthenticated, uploadRestaurant.single('image'), restrictTo("vendor"), updateRestaurant);
 
 // Delete a restaurant
 router.delete('/:id', isAuthenticated, restrictTo("vendor"), deleteRestaurant);

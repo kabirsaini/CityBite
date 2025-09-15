@@ -16,7 +16,14 @@ const port = process.env.PORT || 3000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use('/uploads', express.static('uploads'));
+// app.use('/uploads', express.static('uploads'));
+
+// const corsOptions = {
+//     origin: ["http://localhost:5173", "https://food-website-frontend-j9ak.onrender.com"],
+//     credentials: true,
+//   };
+
+//   app.use(cors(corsOptions));
 
 app.use(cors({
     origin: ["https://food-website-frontend-j9ak.onrender.com", "http://localhost:5173"],
@@ -24,6 +31,7 @@ app.use(cors({
 }));
 
 app.options("/*splat", cors());
+
 
 
 
@@ -44,7 +52,12 @@ app.use('/api/products', productRoutes);
 app.use('/api/restaurants', restaurantRoutes);
 
 //cart routes
-app.use('/api/cart', cartRoutes);
+app.use('/api/cart', (req, res, next) => {
+    console.log(`[Restaurants API] ${req.method} ${req.originalUrl}`);
+    console.log("Headers:", req.headers);
+    console.log("Body:", req.body);
+    next();
+  },cartRoutes);
 
 //review routes
 app.use('/api/reviews', reviewRoutes);

@@ -4,9 +4,9 @@ const cloudinary = require("../config/cloudinary");
 
 // Restaurant image storage
 const restaurantStorage = new CloudinaryStorage({
-    cloudinary,
+    cloudinary: cloudinary,
     params: {
-        folder: "restaurants",   // 👈 Goes inside restaurants folder
+        folder: "restaurants",
         allowed_formats: ["jpg", "jpeg", "png"],
     },
 });
@@ -15,7 +15,7 @@ const restaurantStorage = new CloudinaryStorage({
 const productStorage = new CloudinaryStorage({
     cloudinary,
     params: {
-        folder: "products",   // 👈 Goes inside products folder
+        folder: "products",
         allowed_formats: ["jpg", "jpeg", "png"],
     },
 });

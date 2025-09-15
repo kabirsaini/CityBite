@@ -138,7 +138,7 @@ const Restaurant = ({ onAddToCart }) => {
                                         {products.map((item, index) => (
                                             <div className={`menu-item ${!item.isAvailable ? 'unavailable' : ''}`} key={index}>
                                                 <img
-                                                    src={`https://food-website-backend-20z8.onrender.com/${item.image}`}
+                                                    src={item.image}
                                                     alt={item.name}
                                                 />
                                                 <div className="item-info">
