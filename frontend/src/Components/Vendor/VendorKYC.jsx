@@ -13,7 +13,7 @@ const VendorKYC = () => {
         city: '',
         state: '',
         pincode: '',
-        categories: '',
+        categories:[],
         openingTime: '',
         closingTime: '',
         gsti: '',
@@ -26,8 +26,19 @@ const VendorKYC = () => {
     const [previewURL, setPreviewURL] = useState(null);
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData(prev => ({ ...prev, [name]: value }));
+        const { name, value, type, checked } = e.target;
+
+        if (type === "checkbox") {
+            setFormData((prev) => {
+                if (checked) {
+                    return { ...prev, [name]: [...prev[name], value] }; // add category
+                } else {
+                    return { ...prev, [name]: prev[name].filter((item) => item !== value) }; // remove category
+                }
+            });
+        } else {
+            setFormData((prev) => ({ ...prev, [name]: value }));
+        }
     };
 
     const handleImageChange = (e) => {
@@ -40,39 +51,38 @@ const VendorKYC = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("🚀 handleSubmit triggered"); 
-    
+        console.log("🚀 handleSubmit triggered");
+
         if (!imageFile) {
             toast.error("Please upload an image");
             return;
         }
-    
+
         const token = localStorage.getItem("token");
-    
+
         const submitData = new FormData();
         submitData.append("name", formData.name);
 
         submitData.append("description", formData.description);
-        
+
         // Address as nested object
         submitData.append("address[street]", formData.street);
         submitData.append("address[city]", formData.city);
         submitData.append("address[state]", formData.state);
         submitData.append("address[pincode]", formData.pincode);
-        
+
         // Opening hours as nested object
         submitData.append("openingHours[openingTime]", formData.openingTime);
         submitData.append("openingHours[closingTime]", formData.closingTime);
-        
+
         // Location as GeoJSON
         submitData.append("location[type]", "Point");
         submitData.append("location[coordinates][0]", formData.longitude); // Note: longitude first
         submitData.append("location[coordinates][1]", formData.latitude);
-        
+
         // Categories as array
-        const categoriesArray = formData.categories.split(',').map(cat => cat.trim());
-        categoriesArray.forEach(cat => submitData.append("categories", cat));
-        
+        formData.categories.forEach(cat => submitData.append("categories", cat));
+
         submitData.append("gsti", formData.gsti);
         submitData.append("phone", formData.phone);
         submitData.append("image", imageFile);
@@ -87,9 +97,9 @@ const VendorKYC = () => {
                 },
                 body: submitData
             });
-    
+
             const data = await res.json();
-    
+
             if (res.ok) {
                 toast.success("Restaurant registered successfully ✅");
                 navigate('/vendor/Dashboard');
@@ -112,6 +122,7 @@ const VendorKYC = () => {
                 <h2>Register Your Restaurant</h2>
                 <input type="text" name="name" placeholder="Restaurant Name" value={formData.name} onChange={handleChange} required />
                 <input type="text" name="email" placeholder='Email' value={formData.email} onChange={handleChange} required />
+                <input type="text" name="phone" placeholder="Phone Number" value={formData.phone} onChange={handleChange} required />
                 <textarea name="description" placeholder="Description" value={formData.description} onChange={handleChange} />
                 <input type="text" name="street" placeholder="Street" value={formData.street} onChange={handleChange} required />
                 <input type="text" name="city" placeholder="City" value={formData.city} onChange={handleChange} required />
@@ -122,13 +133,49 @@ const VendorKYC = () => {
                 <input type="file" name="image" accept="image/*" onChange={handleImageChange} required />
                 {previewURL && <img src={previewURL} alt="Preview" style={{ maxWidth: '100%', height: 'auto' }} />}
 
-                <input type="text" name="categories" placeholder="Categories (comma separated)" value={formData.categories} onChange={handleChange} required />
+                <div style={{ margin: "16px 0" }}>
+                    <p style={{ fontWeight: "bold", marginBottom: "8px" }}>Select Restaurant Category:</p>
+
+                    <div style={{ display: "flex", flexWrap: "wrap", gap: "12px" }}>
+                        {["Chinese", "Indian", "Italian", "Korean", "Japanese"].map((cat) => (
+                            <label
+                                key={cat}
+                                style={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                    gap: "6px",
+                                    padding: "6px 12px",
+                                    border: "1px solid #ccc",
+                                    borderRadius: "8px",
+                                    cursor: "pointer",
+                                    background: formData.categories.includes(cat) ? "#f0f8ff" : "#fff",
+                                    boxShadow: formData.categories.includes(cat)
+                                        ? "0 0 6px rgba(0, 123, 255, 0.4)"
+                                        : "none"
+                                }}
+                            >
+                                <input
+                                    type="checkbox"
+                                    name="categories"
+                                    value={cat}
+                                    checked={formData.categories.includes(cat)}
+                                    onChange={handleChange}
+                                    style={{ cursor: "pointer" }}
+                                />
+                                {cat}
+                            </label>
+                        ))}
+                    </div>
+                </div>
+
+
+
+
                 <input type="text" name="openingTime" placeholder="Opening Time (e.g. 10:00 AM)" value={formData.openingTime} onChange={handleChange} required />
                 <input type="text" name="closingTime" placeholder="Closing Time (e.g. 10:00 PM)" value={formData.closingTime} onChange={handleChange} required />
                 <input type="text" name="gsti" placeholder="GSTIN Number" value={formData.gsti} onChange={handleChange} required />
-                <input type="text" name="phone" placeholder="Phone Number" value={formData.phone} onChange={handleChange} required />
-                <input type="text" name="latitude" placeholder="Latitude" value={formData.latitude} onChange={handleChange} required />
-                <input type="text" name="longitude" placeholder="Longitude" value={formData.longitude} onChange={handleChange} required />
+                {/* <input type="text" name="latitude" placeholder="Latitude" value={formData.latitude} onChange={handleChange} required />
+                <input type="text" name="longitude" placeholder="Longitude" value={formData.longitude} onChange={handleChange} required /> */}
 
                 <button type="submit">Submit</button>
             </form>

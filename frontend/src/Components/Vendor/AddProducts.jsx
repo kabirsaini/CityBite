@@ -215,7 +215,7 @@ const AddProducts = () => {
                                 className={`product-card ${!product.isAvailable ? 'disabled' : ''}`}
                             >
                                 <img
-                                    src={`https://food-website-backend-20z8.onrender.com/${product.image}`}
+                                    src={product.image}
                                     alt={product.name}
                                     className="product-image"
                                 />

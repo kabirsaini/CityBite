@@ -19,13 +19,24 @@ const createRestaurant = async (req, res) => {
             return res.status(403).json({ message: "Access denied. Only vendors can create restaurants." });
         }
 
+
         // Extract restaurant details from request body
 
 
         const { name, description, address, location, categories, openingHours, gsti, phone } = req.body;
-        
+
+        let categoriesArray = [];
+        if (Array.isArray(categories)) {
+            categoriesArray = categories;
+        } else if (categories) {
+            categoriesArray = [categories];
+        }
+        console.log("Processed categoriesArray:", categoriesArray);
+        console.log("CategoriesArray length:", categoriesArray.length);
+
+
         const image = req.file ? req.file.path : null;
-        
+
         // Validate required fields
         if (!name || !address || !location || !categories || !openingHours) {
             return res.status(400).json({ message: "Please fill all the required fields" });
@@ -38,7 +49,7 @@ const createRestaurant = async (req, res) => {
             address,
             image,
             location,
-            categories,
+            categories: categoriesArray,
             openingHours,
             gsti,
             phone,
@@ -77,8 +88,8 @@ const getRestaurnatById = async (req, res) => {
 
         const { id } = req.params;
         const restaurant = await resturant.findById(id)
-        .populate('products')
-        .populate("owner", "email");
+            .populate('products')
+            .populate("owner", "email");
         if (!restaurant) {
             return res.status(404).json({ message: "Restaurant not found" });
         }
@@ -112,7 +123,7 @@ const getRestaurantByCity = async (req, res) => {
 const updateRestaurant = async (req, res) => {
     try {
         const { restaurantId } = req.params;
-        const { name, description, address,  location, categories, openingHours } = req.body;
+        const { name, description, address, location, categories, openingHours } = req.body;
 
         const image = req.file ? req.file.path : null;
         // Validate required fields

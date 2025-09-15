@@ -73,7 +73,7 @@ const Cart = ({ cartItems, onRemoveFromCart }) => {
                             {cartItems.map((item, index) => (
                                 <li key={index} className="cart-item">
                                     <img
-                                        src={`https://food-website-backend-20z8.onrender.com/${item.image}`}
+                                        src={item.image}
                                         alt={item.name}
                                     />
                                     <span>{item.name}</span>
@@ -116,7 +116,7 @@ const Cart = ({ cartItems, onRemoveFromCart }) => {
                                     style={{ cursor: 'pointer' }}
                                 >
                                     <div className="restaurant-image">
-                                        <img src={`https://food-website-backend-20z8.onrender.com/${restaurant.image}`} alt={restaurant.name} />
+                                        <img src={restaurant.image} alt={restaurant.name} />
                                     </div>
                                     <h2 className="restaurant-name">{restaurant.name}</h2>
                                     <p className="restaurant-description">{restaurant.categories}</p>

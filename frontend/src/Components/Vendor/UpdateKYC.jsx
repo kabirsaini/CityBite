@@ -164,9 +164,9 @@ const UpdateKYC = () => {
                 ) : currentImage ? (
                     <div>
                         <p>Current Image:</p>
-                        <img 
-                            src={`https://food-website-backend-20z8.onrender.com/${currentImage}`} 
-                            alt="Current" 
+                        <img
+                            src={currentImage}
+                            alt="Current"
                             style={{ maxWidth: '100%', height: 'auto' }} 
                             onError={(e) => {
                                 e.target.onerror = null;
