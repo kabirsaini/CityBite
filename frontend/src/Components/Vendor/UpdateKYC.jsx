@@ -176,7 +176,41 @@ const UpdateKYC = () => {
                     </div>
                 ) : null}
 
-                <input type="text" name="categories" placeholder="Categories (comma separated)" value={formData.categories} onChange={handleChange} required />
+<div style={{ margin: "16px 0" }}>
+                    <p style={{ fontWeight: "bold", marginBottom: "8px" }}>Select Restaurant Category:</p>
+
+                    <div style={{ display: "flex", flexWrap: "wrap", gap: "12px" }}>
+                        {["Chinese", "Indian", "Italian", "Korean", "Japanese"].map((cat) => (
+                            <label
+                                key={cat}
+                                style={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                    gap: "6px",
+                                    padding: "6px 12px",
+                                    border: "1px solid #ccc",
+                                    borderRadius: "8px",
+                                    cursor: "pointer",
+                                    background: formData.categories.includes(cat) ? "#f0f8ff" : "#fff",
+                                    boxShadow: formData.categories.includes(cat)
+                                        ? "0 0 6px rgba(0, 123, 255, 0.4)"
+                                        : "none"
+                                }}
+                            >
+                                <input
+                                    type="checkbox"
+                                    name="categories"
+                                    value={cat}
+                                    checked={formData.categories.includes(cat)}
+                                    onChange={handleChange}
+                                    style={{ cursor: "pointer" }}
+                                />
+                                {cat}
+                            </label>
+                        ))}
+                    </div>
+                </div>
+                
                 <input type="text" name="openingTime" placeholder="Opening Time (e.g. 10:00 AM)" value={formData.openingTime} onChange={handleChange} required />
                 <input type="text" name="closingTime" placeholder="Closing Time (e.g. 10:00 PM)" value={formData.closingTime} onChange={handleChange} required />
                 <input type="text" name="gsti" placeholder="GSTIN Number" value={formData.gsti} onChange={handleChange} required />

@@ -143,6 +143,7 @@ const Restaurant = ({ onAddToCart }) => {
                                                 />
                                                 <div className="item-info">
                                                     <p>{item.name}</p>
+                                                    <p>{item.category}</p>
                                                     <p>Price: ₹{item.price}</p>
                                                     <button
                                                         className="add-to-cart"

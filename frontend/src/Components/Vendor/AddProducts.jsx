@@ -19,12 +19,15 @@ const AddProducts = () => {
     const token = localStorage.getItem("token");
 
     const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData(prev => ({
+        const { name, value, type, checked } = e.target;
+
+        setFormData((prev) => ({
             ...prev,
-            [name]: value
+            [name]: type === "checkbox" ? checked : value,
         }));
     };
+
+
 
     const handleImageChange = (e) => {
         setImageFile(e.target.files[0]);
@@ -39,9 +42,11 @@ const AddProducts = () => {
         }
 
         const submitData = new FormData();
-        Object.entries(formData).forEach(([key, value]) =>
-            submitData.append(key, value)
-        );
+        Object.entries(formData).forEach(([key, value]) => {
+            submitData.append(key, value);
+        });
+
+
         submitData.append("image", imageFile);
 
         try {
@@ -186,8 +191,42 @@ const AddProducts = () => {
                     <h2>Add New Product</h2>
                     <input type="text" name="name" placeholder="Product Name" value={formData.name} onChange={handleChange} required />
                     <input type="text" name="description" placeholder="Description" value={formData.description} onChange={handleChange} required />
-                    <input type="text" name="price" placeholder="Price" value={formData.price} onChange={handleChange} required />
-                    <input type="text" name="category" placeholder="Category" value={formData.category} onChange={handleChange} required />
+                    <input type="text" name="price" placeholder="₹ Price" value={formData.price} onChange={handleChange} required />
+
+                    <div style={{ margin: "16px 0" }}>
+                        <p style={{ fontWeight: "bold", marginBottom: "8px" }}>Select Food Category:</p>
+
+                        <div style={{ display: "flex", flexWrap: "wrap", gap: "12px" }}>
+                            {["Chinese", "Indian", "Italian", "Korean", "Japanese"].map((cat) => (
+                                <label
+                                    key={cat}
+                                    style={{
+                                        display: "flex",
+                                        alignItems: "center",
+                                        gap: "6px",
+                                        padding: "6px 12px",
+                                        border: "1px solid #ccc",
+                                        borderRadius: "8px",
+                                        cursor: "pointer",
+                                        background: formData.category === cat ? "#f0f8ff" : "#fff",
+                                        boxShadow: formData.category === cat
+                                            ? "0 0 6px rgba(0, 123, 255, 0.4)"
+                                            : "none"
+
+                                    }}
+                                >
+                                    <input
+                                        type="radio"
+                                        name="category"
+                                        value={cat}
+                                        checked={formData.category === cat}
+                                        onChange={handleChange}
+                                    />
+                                    {cat}
+                                </label>
+                            ))}
+                        </div>
+                    </div>
 
                     {/* <select name="isAvailable" value={formData.isAvailable} onChange={handleChange}>
                 <option value={true}>Available</option>
