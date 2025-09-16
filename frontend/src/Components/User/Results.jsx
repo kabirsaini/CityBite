@@ -111,13 +111,14 @@ const Results = ({ city2 }) => {
                                 style={{ cursor: 'pointer' }}
                             >
                                 <div className="restaurant-image">
-                                <img src={restaurant.image} alt={restaurant.name} />
+                                    <img src={restaurant.image} alt={restaurant.name} />
                                 </div>
                                 <div className='details'>
                                     <h2 className="restaurant1-name">{restaurant.name}</h2>
                                     <p className="restaurant1-category">
-                                        {restaurant.categories}
+                                        {restaurant.categories.join(", ")}
                                     </p>
+
                                     <p className="restaurant1-city">
                                         <strong>City:</strong> {restaurant.address?.city}
                                     </p>

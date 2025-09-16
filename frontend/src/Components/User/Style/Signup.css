@@ -14,7 +14,7 @@
 .Login-left {
   width: 50%;
   background-color: #CB202D;
-  background-image : url("/MainPhoto.png");
+  background-image: url("https://res.cloudinary.com/dql26m6d5/image/upload/v1758008937/MainPhoto_irnrrn.png");
   background-size : cover;
   background-position: center;   /* centers main part */
   background-repeat: no-repeat;  /* prevent tiling */
