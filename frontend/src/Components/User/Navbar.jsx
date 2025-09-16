@@ -61,6 +61,9 @@ const Navbar = ({ cartCount }) => {
         setOpen(!open);
     }
     const handleLogout = () => {
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        setUser('');
         toast.success("Logout successful ✅");
         navigate("/login");
     };
