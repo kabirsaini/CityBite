@@ -1,4 +1,4 @@
-** CityBite **  – Restaurant Management and Food Ordering site <br>
+**CityBite**  – *Restaurant Management and Food Ordering site* <br>
 Technology Used - MongoDB, ExpressJs, ReactJs, NodeJs (MERN stack), React Recharts, Razorpay Payment Gateway, Google oAuth.<br>
 ◦ Designed and developed a multi-user (user/vendor) food ordering and restaurant management platform 
   using the MERN stack and RESTful APIs.
