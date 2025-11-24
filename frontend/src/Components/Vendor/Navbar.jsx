@@ -32,7 +32,7 @@ const Navbar = () => {
 
     return (
         <nav className="navbar1">
-            <div className="navbar-logo1">Gorato</div>
+            <div className="navbar-logo1">CityBite</div>
             <ul className="navbar-links1">
                 <li>
                     <Link to="/vendor/Dashboard" className={isActive('/vendor/Dashboard') ? 'active' : ''}>Home</Link>

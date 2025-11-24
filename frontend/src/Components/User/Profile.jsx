@@ -6,7 +6,7 @@ const Profile = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Fetch user details + orders
+  //  user details + orders
   useEffect(() => {
     const fetchProfile = async () => {
       try {
@@ -27,9 +27,11 @@ const Profile = () => {
         const data = await res.json();
         setUser(data.user);
         setOrders(data.orders);
-      } catch (err) {
+      }
+      catch (err) {
         console.error(err);
-      } finally {
+      }
+      finally {
         setLoading(false);
       }
     };
@@ -43,12 +45,26 @@ const Profile = () => {
     <div className="profile-page">
       {user ? (
         <>
-          {/* User Info */}
           <div className="profile-info card">
             <h2>Your Profile</h2>
-            <p><strong>Name:</strong> {user.name}</p>
-            <p><strong>Email:</strong> {user.email}</p>
-            <p><strong>Phone:</strong> {user.phone || "Not provided"}</p>
+
+            <div className="detail-pp-sec">
+
+              <div className="detail-pp-cont">
+                <div>
+
+                <img src="icon.jpg" alt="Profile" className="detail-pp" />
+                </div>
+                <div className="nam3"><p>{user.name}</p></div>
+              </div>
+              <div className="details">
+                <button>Edit Profile</button>
+                {/* <p><strong>Name:</strong> {user.name}</p>
+                <p><strong>Email:</strong> {user.email}</p>
+                <p><strong>Phone:</strong> {user.phone || "Not provided"}</p> */}
+
+              </div>
+            </div>
           </div>
         </>
       ) : (

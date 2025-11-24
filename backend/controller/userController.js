@@ -59,7 +59,6 @@ exports.register = async (req, res) => {
         const token = signToken(user);
 
         res.status(201).json({ token, user });
-
     }
 
     catch (err) {

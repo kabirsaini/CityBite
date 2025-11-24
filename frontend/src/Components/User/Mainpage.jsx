@@ -83,7 +83,6 @@ function Mainpage() {
       description: "A popular street food from Maharashtra, consisting of a spicy potato fritter sandwiched in a bread roll.",
       city: "Mumbai",
     },
-
   ];
 
   const Cities = [

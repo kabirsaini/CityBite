@@ -155,7 +155,7 @@ const Mainpage = () => {
                                 <div key={order._id} className="order-card">
                                     <h4>Order #{idx + 1}</h4>
                                     <p><strong>Customer:</strong> {order.userId?.name} ({order.userId?.email})</p>
-                                    <p><strong>Status:</strong> {order.status}</p>
+                                    <p><strong>Status:</strong>Pending</p>
                                     <p><strong>Total:</strong> ₹{order.totalPrice}</p>
                                     <ul>
                                         {order.products.map((item, i) => (

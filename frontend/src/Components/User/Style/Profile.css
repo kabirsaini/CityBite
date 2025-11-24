@@ -21,6 +21,8 @@
     border-radius: 12px;
     box-shadow: 0 6px 18px rgba(0,0,0,0.1);
     transition: transform 0.2s ease;
+    display:flex;
+    flex-direction: column;
   }
   
   .card:hover {
@@ -95,4 +97,20 @@
     font-size: 0.95rem;
     color: #555;
   }
-  
+
+  .detail-pp-sec{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .detail-pp-cont{
+    display: flex;
+    
+  }
+  .detail-pp{
+    width: 150px;
+  }
+  .nam3{
+    display: flex;
+    align-items: center;
+  }

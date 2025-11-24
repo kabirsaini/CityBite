@@ -130,6 +130,7 @@ const Login = () => {
                             />
                             {errors.password && <p className="error-msg">{errors.password.message}</p>}
                             <br />
+                            <p id="fpassword">forgot password?</p>
 
 
                             <div className="button-wrapper">
@@ -171,14 +172,13 @@ const Login = () => {
                                         // Store token and user
                                         localStorage.setItem('token', data.token);
                                         localStorage.setItem('user', JSON.stringify(data.user));
-                                    } catch (err) {
-                                        toast.success("Google login successful ✅");
                                         navigate('/Mainpage');
+                                    } catch (err) {
+                                        toast.error("Google login Failed ");
                                         console.error('Google login failed:', err.message);
                                     }
                                 }}
                                 onError={() => {
-                                    toast.success("Google login successful ✅");
                                     console.log('Login Failed');
                                 }}
                                 auto_select={true}

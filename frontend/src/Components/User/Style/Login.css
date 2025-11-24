@@ -186,3 +186,8 @@ cursor: not-allowed;
 .signup-footer{
     margin-top: 15px;
 }
+
+#fpassword{
+    font-size: 0.8rem;
+    opacity: 0.5;
+}

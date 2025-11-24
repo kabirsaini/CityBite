@@ -36,7 +36,7 @@ exports.googleLogin = async (req, res) => {
 
         const token = jwt.sign(
             { _id: user._id, role: user.role },
-            process.env.JWT_SECRET,
+            process.env.SECRET_KEY,
             { expiresIn: '7d' }
         );
 
@@ -44,6 +44,6 @@ exports.googleLogin = async (req, res) => {
 
     } catch (err) {
         console.error("Google login error:", err);
-        res.status(401).json({ message: "Google login failed" });
+        res.status(401).json({error: err.message });
     }
 };
