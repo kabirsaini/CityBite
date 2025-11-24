@@ -35,6 +35,7 @@ const Navbar = ({ cartCount }) => {
                     headers: {
                         Authorization: `Bearer ${token}`,
                         "Content-Type": "application/json",
+                        
                     },
                 });
 
@@ -46,8 +47,6 @@ const Navbar = ({ cartCount }) => {
                 setUser(data.user);
             } catch (err) {
                 console.error(err);
-            } finally {
-                setLoading(false);
             }
         };
 
@@ -63,7 +62,7 @@ const Navbar = ({ cartCount }) => {
     const handleLogout = () => {
         localStorage.removeItem("token");
         localStorage.removeItem("user");
-        setUser('');
+        setUser({});
         toast.success("Logout successful ✅");
         navigate("/login");
     };
@@ -79,7 +78,8 @@ const Navbar = ({ cartCount }) => {
                         onClick={handledropdown}
                         className="dropdown-button"
                     >
-                        Hello,{user.name} {open ? '⌃' : '⌄'}
+                        Hello, {user?.name}
+                        {open ? '⌃' : '⌄'}
                     </button>
 
 

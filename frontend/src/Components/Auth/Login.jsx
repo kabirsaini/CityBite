@@ -156,7 +156,7 @@ const Login = () => {
                                             },
                                             body: JSON.stringify({
                                                 credential: credentialResponse.credential,
-                                                role: 'customer'  // or 'vendor' based on context
+                                                role: 'user'  // or 'vendor' based on context
                                             }),
                                         });
 

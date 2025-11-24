@@ -18,13 +18,13 @@ const userSchema = new mongoose.Schema({
 
     phone: {
         type: String,
-        required: true,
-        unique: true,
+        // required: true,
+        // unique: true, due to google login
     },
 
     password: {
         type: String,
-        required: true,
+        // required: true, due to google login
     },
 
     address: {

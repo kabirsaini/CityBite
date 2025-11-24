@@ -118,7 +118,7 @@ const Signup = () => {
                                             },
                                             body: JSON.stringify({
                                                 credential: credentialResponse.credential,
-                                                role: 'customer'
+                                                role: 'user'
                                             }),
                                         });
 
@@ -128,11 +128,15 @@ const Signup = () => {
                                         }
 
                                         const data = await res.json();
+                                        toast.success("Google login successful ✅");
                                         console.log('Login success:', data);
 
+                                        // Store token and user
                                         localStorage.setItem('token', data.token);
                                         localStorage.setItem('user', JSON.stringify(data.user));
+                                        navigate('/Mainpage');
                                     } catch (err) {
+                                        toast.error("Google login Failed ");
                                         console.error('Google login failed:', err.message);
                                     }
                                 }}

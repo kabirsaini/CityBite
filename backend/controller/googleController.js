@@ -19,23 +19,20 @@ exports.googleLogin = async (req, res) => {
         let user = await User.findOne({ email });
 
         if (!user) {
-            if (!['vendor', 'customer'].includes(role)) {
-                return res.status(400).json({ message: "Role must be 'vendor' or 'customer'" });
+            if (!['vendor', 'user'].includes(role)) {
+                return res.status(400).json({ message: "Role must be 'vendor' or 'user'" });
             }
 
             // Create user with selected role
             user = await User.create({
                 name,
                 email,
-                profileImage: picture,
-                password: null,
-                isGoogleUser: true,
-                role  //  Assign selected role
+                role: role || 'user'//  Assign selected role
             });
         }
 
         const token = jwt.sign(
-            { _id: user._id, role: user.role },
+            { id: user._id, role: user.role },
             process.env.SECRET_KEY,
             { expiresIn: '7d' }
         );
