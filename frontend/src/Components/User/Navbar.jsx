@@ -73,18 +73,18 @@ const Navbar = ({ cartCount }) => {
             <ul className="navbar-links">
                 <li><Link to="/MainPage">Home</Link></li>
 
+
                 <div className="dropdown-container" ref={dropdownRef}>
                     <button
                         onClick={handledropdown}
-                        className="dropdown-button"
-                    >
-                        Hello, {user?.name}
-                        {open ? '⌃' : '⌄'}
+                        className="dropdown-button">
+                        <img src="https://res.cloudinary.com/dql26m6d5/image/upload/v1764014202/ChatGPT_Image_Nov_25_2025_01_26_27_AM_z2c1hu.png" alt="avatar" height={35} width={35} />
                     </button>
 
 
                     {open && (
                         <div className="dropdown-menu">
+                            <p style={{marginTop:"10px" ,marginLeft: "15px",  marginBottom: "10px", fontFamily: `"DM Serif Text", serif`, fontSize: "16px", fontWeight:"600" }}>  Hello, {user?.name}</p>
                             <button
                                 onClick={() => {
                                     navigate("/Profile");
@@ -94,6 +94,7 @@ const Navbar = ({ cartCount }) => {
                             >
                                 Profile
                             </button>
+
                             <button
                                 onClick={() => {
                                     navigate("/MyOrders");
@@ -103,6 +104,7 @@ const Navbar = ({ cartCount }) => {
                             >
                                 My Orders
                             </button>
+
                             <button
                                 onClick={() => {
                                     handleLogout();
@@ -112,13 +114,13 @@ const Navbar = ({ cartCount }) => {
                             >
                                 Logout
                             </button>
+
                         </div>
                     )}
                 </div>
-
                 <li>
                     <Link to="/Cart" className="cart-link">
-                        <IoMdCart size="22px" />
+                        <IoMdCart size="25px" style={ {marginTop: "10px"}}/>
                         {cartCount > 0 && <span className="cart-count">{cartCount}</span>}
                     </Link>
                 </li>

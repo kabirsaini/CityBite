@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import MiniPopup from './MiniPopup';
 import '@/Components/User/Style/MiniPopup.css';
+
 const CheckoutPage = (props) => {
     const navigate = useNavigate();
     const location = useLocation();
@@ -17,9 +18,27 @@ const CheckoutPage = (props) => {
         state: '',
         pincode: ''
     });
+
+
     const [showForm, setShowForm] = useState(false);
 
     const [method, setMethod] = useState("");
+
+    const [coupon, setCoupon] = useState("");
+    const [finalTotal, setFinalTotal] = useState(total);
+    const [message, setMessage] = useState("");
+
+
+    const applyCoupon = () => {
+        if (coupon.trim().toUpperCase() === "CITYBITE10") {
+            const discounted = total - total * 0.10; // 10% OFF
+            setFinalTotal(discounted);
+            setMessage("Coupon Applied! 10% discount added.");
+        } else {
+            setFinalTotal(total);
+            setMessage("❌ Invalid coupon code.");
+        }
+    };
 
     const handleProceed = () => {
         if (!method) {
@@ -46,6 +65,7 @@ const CheckoutPage = (props) => {
                 const data = await res.json();
                 if (res.ok && data.address && data.address.street) {
                     setSavedAddress(data.address);
+                    setFinalTotal(finalTotal + 50);
                 } else {
                     setShowForm(true); // no address found
                 }
@@ -109,7 +129,7 @@ const CheckoutPage = (props) => {
         const response = await fetch('https://food-website-backend-20z8.onrender.com/api/payments/createOrder', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ amount: total }),
+            body: JSON.stringify({ amount: finalTotal }),
         });
 
         const data = await response.json();
@@ -164,25 +184,87 @@ const CheckoutPage = (props) => {
         rzp.open();
     };
 
+    const fetchCart = async()=>{
+        const res=await fetch("https://food-website-backend-20z8.onrender.com/api/cart", {
+            method:'GET',
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        const data=await res.json();
+        setCart(data);
+    };
+
+    useEffect( ()=>{
+        fetchCart();
+    },[]);
+
+    const handleAddToCart = async (item) => {
+        try {
+            const token = localStorage.getItem("token");
+            const res = await fetch("https://food-website-backend-20z8.onrender.com/api/cart", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                    productId: item._id,
+                    quantity: 1,
+                    city: restaurant.address?.city
+                })
+            });
+
+            const data = await res.json();
+
+            if (res.ok) {
+                toast.success("Item added to cart successfully!");
+            } else {
+                console.error(data.message || "Failed to add to cart");
+                alert("Failed to add item to cart.");
+            }
+        } catch (error) {
+            console.error("Error adding to cart:", error);
+            alert("Something went wrong.");
+        }
+    };
+
     return (
         <>
             <div className="checkout-container">
-                
+
                 <div className="checkout-left">
-                    
+
                     <div className="Checkout">
                         <h3>Delivery Address</h3>
 
                         {savedAddress ? (
                             <>
-                                <p>{savedAddress.street}, {savedAddress.city}</p>
-                                <p>{savedAddress.state} - {savedAddress.pincode}</p>
-                                <p
-                                    style={{ color: 'blue', cursor: 'pointer' }}
-                                    onClick={() => setShowForm(true)}
-                                >
-                                    Change Address
-                                </p>
+
+
+                                <div className="saved-address">
+                                    <p>{savedAddress.street}, {savedAddress.city}</p>
+                                    <p>{savedAddress.state} - {savedAddress.pincode}</p>
+                                </div>
+                                <div className="divider">
+                                    <span>or</span>
+                                </div>
+                                <div style={{ display: "flex", justifyContent: "center" }}>
+                                    <button
+                                        style={{
+                                            backgroundColor: "white",
+                                            padding: "10px",
+                                            border: "0.7px solid black",
+                                            borderRadius: "10px",
+                                            cursor: "pointer",
+                                            color: "#da2031"
+                                        }}
+                                        onClick={() => setShowForm(true)}
+                                    >
+                                        + Change Address
+                                    </button>
+
+                                </div>
                             </>
                         ) : (
                             <p>Loading address...</p>
@@ -191,64 +273,119 @@ const CheckoutPage = (props) => {
                         {showForm && (
                             <MiniPopup onClose={() => setShowForm(false)}>
                                 <div class="address-form">
-                                <h4>{savedAddress ? 'Update Address' : 'Add Address'}</h4>
-                                <input type="text" name="street" placeholder="Street" value={formAddress.street} onChange={handleChange} />
-                                <input type="text" name="city" placeholder="City" value={formAddress.city} onChange={handleChange} />
-                                <input type="text" name="state" placeholder="State" value={formAddress.state} onChange={handleChange} />
-                                <input type="text" name="pincode" placeholder="Pincode" value={formAddress.pincode} onChange={handleChange} />
-                                <button onClick={handleUpdate}>Save</button>
+                                    <h4>{savedAddress ? 'Update Address' : 'Add Address'}</h4>
+                                    <input type="text" name="street" placeholder="Street" value={formAddress.street} onChange={handleChange} />
+                                    <input type="text" name="city" placeholder="City" value={formAddress.city} onChange={handleChange} />
+                                    <input type="text" name="state" placeholder="State" value={formAddress.state} onChange={handleChange} />
+                                    <input type="text" name="pincode" placeholder="Pincode" value={formAddress.pincode} onChange={handleChange} />
+                                    <button onClick={handleUpdate}>Save</button>
                                 </div>
                             </MiniPopup>
                         )}
-                    </div>
 
-                    {/* Payment Section */}
-                    <div className="payment">
-                        <h2>Select Payment Method</h2>
 
-                        <div className="payment-methods">
+                        {/* Payment Section */}
+                        <div className="payment">
 
-                            <p>COD</p>
-                            <label className="payment-method">
-                                <input
-                                    type="radio"
-                                    name="payment"
-                                    value="cod"
-                                    checked={method === "cod"}
-                                    onChange={() => setMethod("cod")}
-                                />
-                                Cash on Delivery
-                            </label>
+                            <h3>Select Payment Method</h3>
 
-                            <p>Online Payments</p>
-                            <label className="payment-method">
-                                <input
-                                    type="radio"
-                                    name="payment"
-                                    value="online"
-                                    checked={method === "online"}
-                                    onChange={() => setMethod("online")}
-                                />
-                                <img src="Razorpay_logo.svg" width={80} height={30} alt="Razorpay" />
-                            </label>
+                            <div className="payment1">
+                                <p>Online Payments</p>
+
+                                <label className="payment-method">
+                                    <input
+                                        type="radio"
+                                        name="payment"
+                                        value="online"
+                                        checked={method === "online"}
+                                        onChange={() => setMethod("online")}
+                                    />
+                                    <img src="Razorpay_logo.svg" width={80} height={30} alt="Razorpay" />
+                                </label>
+
+                                <p>Pay on Delivery</p>
+                                <label className="payment-method">
+                                    <input
+                                        type="radio"
+                                        name="payment"
+                                        value="cod"
+                                        checked={method === "cod"}
+                                        onChange={() => setMethod("cod")}
+                                    />
+                                    <img src="https://res.cloudinary.com/dql26m6d5/image/upload/v1764085460/curved-stack-money-icon-3d-illustration_56104-2816_cez2mo.webp" alt="" height={40} width={40} />
+                                    Cash on Delivery
+                                </label>
+
+
+                            </div>
+
                         </div>
-
-                        <button onClick={handleProceed} className="proceed-btn">
-                            Proceed
-                        </button>
                     </div>
+
                 </div>
 
                 {/* RIGHT SIDE - Order Summary */}
                 <div className="checkout-right">
-                    <h2>Order Summary</h2>
+                    <h2 style={{ fontFamily: `"Segoe UI", Tahoma, Geneva, Verdana, sans-serif` }}>Order Summary</h2>
                     <div className="order-summary">
-                        <p><strong>Items:</strong> {cartItems.length}</p>
-                        <p><strong>Delivery:</strong> Free</p>
-                        <p><strong>Promotion Applied:</strong> None</p>
-                        <hr />
-                        <p className="order-total"><strong>Order Total:</strong> ₹{total}</p>
+                        <ul className="cart-list">
+                            {cartItems.map((item, index) => (
+                                <li key={index} className="cart-item">
+                                    <img
+                                        src={item.image}
+                                        alt={item.name}
+                                    />
+                                    <span>{item.name}</span>
+                                    <span>{item.quantity}</span>
+                                    <span>₹{item.price * item.quantity}</span>
+                                </li>
+                            ))}
+                        </ul>
+
+                        <div className="coupon-code">
+                            <div className="coupon-input" style={{ display: "flex", justifyContent: "space-between", border: "0.5px solid #000075", borderRadius: "10px", padding: "5px" }}>
+                                <input type="text" placeholder="Enter coupon code" value={coupon} onChange={(e) => setCoupon(e.target.value)} style={{ border: "0px", width: "80%", outline: "none" }} />
+                                <p onClick={applyCoupon} style={{ cursor: "pointer" }}>Apply</p>
+
+                            </div>
+                            {message && (<p style={{ color: "#da2031", marginTop: "5px", fontSize: "14px" }}> {message} </p>
+                            )}
+
+                        </div>
+
+                        <div className="total-summary" style={{ marginTop: "10px" }}>
+                            <div style={{ display: "flex", justifyContent: "space-between", color: "rgb(125 125 125)" }}>
+                                <p>Sub-total:</p>
+                                <p>₹{total}</p>
+                            </div>
+                            <div style={{ display: "flex", justifyContent: "space-between", color: "rgb(125 125 125)" }}>
+                                <p>Delivery Charges:</p>
+                                <p>₹ 50</p>
+                            </div>
+                            {message &&
+                                (
+                                    <div style={{ display: "flex", justifyContent: "space-between", color: "rgb(125 125 125)" }}>
+                                        <p>Coupon Code:</p>
+                                        <p>- ₹{total * 0.10}</p>
+                                    </div>
+                                )}
+
+                            <div style={{ display: "flex", justifyContent: "space-between", borderTop: "0.5px solid #00000075" }}>
+                                <p className="order-total" ><strong> Total</strong></p>
+                                <p style={{ fontSize: "18px", fontFamily: `"Inter", sans-serif`, fontWeight: "600", color: "#000000cc" }}> ₹{finalTotal.toFixed(2)}</p>
+                            </div>
+
+                        </div>
                     </div>
+                    <button
+                        onClick={() => {
+                            handleProceed();
+                            handleAddToCart(cartItems);
+                        }}
+                        className="proceed-btn"
+                    >
+                        Proceed
+                    </button>
                 </div>
             </div>
 

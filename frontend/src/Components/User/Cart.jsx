@@ -1,44 +1,59 @@
 import '@/Components/User/Style/Cart.css';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Results from './Results';
-import { useState, useEffect } from 'react';
 
-const Cart = ({ cartItems, onRemoveFromCart }) => {
+const Cart = () => {
     const navigate = useNavigate();
+
+    const token = localStorage.getItem("token");
+
+    const [cart, setCart] = useState({
+        products: [],
+        totalPrice: 0
+    });
     const [restaurants, setRestaurant] = useState([]);
-    const total = cartItems.reduce((sum, item) => sum + item.price, 0);
-    const city = cartItems.find(item => item.city)?.city.toUpperCase() || "";
+
+    const total = cart.products.reduce(
+        (sum, item) => sum + item.productId.price * item.quantity,
+        0
+    );
+
+    const city = cart.products[0]?.city?.toUpperCase() || "";
+
+
 
     const handleBuyNow = () => {
         navigate('/Checkout', {
             state: {
-                cartItems,
-                total
+                cart: cart.products,
+                total: cart.totalPrice
             }
         });
     };
 
-    useEffect(() => {
-        const fetchcityRestaurants = async () => {
-            try {
-                const res = await fetch(`https://food-website-backend-20z8.onrender.com/api/restaurants/city/${city}`);
-                const data = await res.json();
 
-                if (res.ok) {
-                    setRestaurant(data.restaurants || []);
-                }
-                else {
-                    alert(data.message || "Error fetching restaurants.");
-                    throw new Error("Failed to fetch restaurants");
-                }
-            }
-            catch (err) {
-                console.error(err);
-            }
-        }
 
-        fetchcityRestaurants();
-    })
+    // useEffect(() => {
+    //     const fetchcityRestaurants = async () => {
+    //         try {
+    //             const res = await fetch(`https://food-website-backend-20z8.onrender.com/api/restaurants/city/${city}`);
+    //             const data = await res.json();
+
+    //             if (res.ok) {
+    //                 setRestaurant(data.restaurants || []);
+    //             }
+    //             else {
+    //                 alert(data.message || "Error fetching restaurants.");
+    //                 throw new Error("Failed to fetch restaurants");
+    //             }
+    //         }
+    //         catch (err) {
+    //             console.error(err);
+    //         }
+    //     }
+
+    //     fetchcityRestaurants();
+    // }, [city]);
 
     const handleRestaurantClick = async (id) => {
         try {
@@ -60,27 +75,86 @@ const Cart = ({ cartItems, onRemoveFromCart }) => {
         }
     };
 
+    const fetchCart = async () => {
+        const res = await fetch(`https://food-website-backend-20z8.onrender.com/api/cart`, {
+            method: 'GET',
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        const data = await res.json();
+        setCart(data);
+    };
+
+    useEffect(() => {
+        fetchCart();
+    }, []);
+
+
+    const increaseQuantity = async (id) => {
+        await fetch(`https://food-website-backend-20z8.onrender.com/api/cart/increase/${id}`, {
+            method: 'PUT',
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        fetchCart();
+    }
+
+
+    const decreaseQuantity = async (id) => {
+        await fetch(`https://food-website-backend-20z8.onrender.com/api/cart/decrease/${id}`, {
+            method: 'PUT',
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        fetchCart();
+    }
+
+    const removeItem = async (id) => {
+        await fetch(`https://food-website-backend-20z8.onrender.com/api/cart/${id}`, {
+            method: "DELETE",
+            headers: { Authorization: `Bearer ${token}` }
+        });
+        fetchCart();
+    };
+
+
+
+
+
     return (
         <>
             <div className="cart-container">
                 <h2>Your Cart</h2>
 
-                {cartItems.length === 0 ? (
+                {cart.length === 0 ? (
                     <p>Your cart is empty.</p>
                 ) : (
                     <>
                         <ul className="cart-list">
-                            {cartItems.map((item, index) => (
+                            {cart.products.map((item, index) => (
                                 <li key={index} className="cart-item">
                                     <img
-                                        src={item.image}
-                                        alt={item.name}
+                                        src={item.productId.image}
+                                        alt={item.productId.name}
                                     />
-                                    <span>{item.name}</span>
-                                    <span>₹{item.price}</span>
+                                    <span>{item.productId.name}</span>
+
+                                    <div style={{ display: 'flex', alignItems: 'center', border: '1px solid #ccc', borderRadius: '5px', width: "80px", justifyContent: "space-between" }}>
+                                        <button onClick={() => increaseQuantity(item.productId._id)} style={{
+                                            borderRadius: '5px',
+                                            backgroundColor: "white",
+                                            border: "white",
+                                        }}>+</button>
+                                        <p>{item.quantity}</p>
+                                        <button onClick={() => decreaseQuantity(item.productId._id)}>-</button>
+                                    </div>
+                                    <span>₹{item.productId.price * item.quantity} </span>
                                     <button
                                         className="remove-btn"
-                                        onClick={() => onRemoveFromCart(index)}
+                                        onClick={() => removeItem(item.productId._id)}
                                     >
                                         Remove
                                     </button>
@@ -127,7 +201,7 @@ const Cart = ({ cartItems, onRemoveFromCart }) => {
                             ))}
                         </div>
                     </div>
-)}
+                )}
 
 
             </div>

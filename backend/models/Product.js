@@ -29,7 +29,7 @@ const productSchema = new mongoose.Schema({
     tags:[String],
 
     ratings:{
-        avergage:{
+        average:{
             type:Number,
             default:0,
         },
@@ -50,7 +50,8 @@ const productSchema = new mongoose.Schema({
     },
 
     discountPrice: {
-    type: Number
+    type: Number,
+    default: null
     },
 
     restaurantId:{

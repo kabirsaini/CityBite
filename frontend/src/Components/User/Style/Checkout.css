@@ -12,7 +12,6 @@
 .Checkout h3 {
   font-size: 22px;
   margin-bottom: 15px;
-  border-bottom: 1px solid #ddd;
   padding-bottom: 10px;
 }
 
@@ -30,18 +29,23 @@
 }
 
 .payment {
-  border: 1px solid #ddd;
+  margin-top:40px;
   width: 700px;
-  padding: 20px;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
   font-family: "Segoe UI", sans-serif;
 }
 
-.payment h2 {
-  text-align: center;
-  margin-bottom: 1.5rem;
+.payment1{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.payment1 p{
+  color:#00000082;
+}
+
+.payment h3 {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin-bottom: 1rem;
   color: #333;
 }
 
@@ -60,6 +64,12 @@
   display: flex;
   align-items: center;
   gap: 10px;
+  border: 0.5px solid #00000075;
+  padding: 10px;
+  border-radius: 10px;
+  width: 94%;
+  background-color: #f8f7f7;
+  height: 25px;
 }
 
 .razorpay-btn {
@@ -77,22 +87,7 @@
   background-color: #218838;
 }
 
-.proceed-btn {
-  width: 100%;
-  padding: 14px;
-  background: linear-gradient(135deg, #007bff, #0056d2);
-  color: #fff;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  font-size: 1rem;
-  font-weight: 600;
-  transition: all 0.3s ease;
-}
 
-.proceed-btn:hover {
-  background: linear-gradient(135deg, #0056d2, #003ea8);
-}
 
 
 /* Popup input styling */
@@ -175,12 +170,15 @@
 
 /* Right column (Order Summary) */
 .checkout-right {
+  display: flex;
+    flex-direction: column;
   flex: 1.5;
   background: #fff;
   border: 1px solid #ddd;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  gap: 20px;
 }
 
 .payment-methods p{
@@ -192,8 +190,9 @@
 }
 
 .order-total {
-  font-size: 18px;
-  color: #d9534f;
+  font-size: 25px;
+  font-family: "Inter", sans-serif;
+  color: #000000cc;
 }
 
 /* Payment methods */
@@ -213,7 +212,7 @@
 .proceed-btn {
   margin-top: 20px;
   padding: 12px 18px;
-  background-color: #007bff;
+  background-color: #da2031;
   color: #fff;
   border: none;
   border-radius: 6px;
@@ -222,7 +221,13 @@
   transition: background 0.3s ease;
 }
 
-.proceed-btn:hover {
-  background-color: #0056b3;
-}
 
+
+.saved-address {
+  border: 0.5px solid #00000075;
+    border-radius: 12px;
+    padding: 8px;
+    padding-left: 10px;
+    color: #00000075;
+    
+}

@@ -3,12 +3,19 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-const Restaurant = ({ onAddToCart }) => {
+const Restaurant = () => {
     const { id } = useParams();
     const [activeTab, setActiveTab] = useState('about');
     const [restaurant, setRestaurant] = useState({});
     const [reviews, setReviews] = useState([]);
     const [products, setProducts] = useState([]);
+
+    const [cart, setCart] = useState({
+        products: [],
+        totalPrice: 0
+      });
+
+    const token=localStorage.getItem("token");
 
     useEffect(() => {
         const fetchRestaurantAndProducts = async () => {
@@ -51,10 +58,9 @@ const Restaurant = ({ onAddToCart }) => {
                 alert("Failed to fetch restaurant or products.");
             }
         };
-
-
         fetchRestaurantAndProducts();
     }, [id]);
+
 
     const handleAddToCart = async (item) => {
         try {
@@ -76,9 +82,7 @@ const Restaurant = ({ onAddToCart }) => {
 
             if (res.ok) {
                 toast.success("Item added to cart successfully!");
-                if (onAddToCart) {
-                    onAddToCart({ ...item, city: restaurant.address?.city });
-                }
+                fetchCart();
             } else {
                 console.error(data.message || "Failed to add to cart");
                 alert("Failed to add item to cart.");
@@ -89,6 +93,20 @@ const Restaurant = ({ onAddToCart }) => {
         }
     };
 
+    const fetchCart = async()=>{
+        const res=await fetch("https://food-website-backend-20z8.onrender.com/api/cart", {
+            method:'GET',
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        const data=await res.json();
+        setCart(data);
+    };
+
+    useEffect( ()=>{
+        fetchCart();
+    },[]);
 
 
     return (

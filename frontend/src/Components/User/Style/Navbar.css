@@ -1,30 +1,31 @@
-
-
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #CB202D;
     padding: 10px 20px;
-    color: #fff;
     overflow: visible;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    border-bottom: 1px solid #eaeaea;
 }
 
 .navbar-logo {
-    font-size: 1.5rem;
-    font-weight: bold;
+    font-size: 2rem;
+    font-family: "Alfa Slab One", serif;;
+}
+.navbar-logo:hover{
+  color: #dd1628fc;
 }
 
 .navbar-links {
     list-style: none;
     display: flex;
+    align-items: center;
     gap: 20px;
 }
 
 .navbar-links li a {
     text-decoration: none;
-    color: #ffffff;
+    color: black;
     font-weight: 500;
     transition: color 0.3s ease;
 }
@@ -35,7 +36,7 @@
   
 
 .navbar-links li a:hover {
-    color: #61dafb;
+    color: #dd1628fc;
 }
 
 .dropdown-container {
@@ -46,10 +47,9 @@
   .dropdown-button {
     display: flex;
   align-items: center;
-  background-color: #c53030;
   font-size: 15px;
   margin-top: 1.5px;
-  color: white;
+  color: black;
   border: none;
   border-radius: 4px;
   font-weight: 550;
@@ -70,10 +70,10 @@
   overflow: hidden;
   padding: 8px 0;
   border: 1px solid #eaeaea;
-    
   }
+
   
-  
+
   .dropdown-item {
     display: flex;
   align-items: center;
@@ -90,7 +90,7 @@
   }
   
   .dropdown-item:hover {
-    background-color: #f5f5f5;
+    background-color: aliceblue;
   }
   
   .cart-link{

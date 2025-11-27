@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -8,11 +8,13 @@ import Signup from './Components/Auth/Signup';
 import Cart from './Components/User/Cart';
 import Checkout from './Components/User/CheckoutPage';
 import Mainpage from './Components/User/Mainpage';
+import MyOrders from './Components/User/MyOrders';
 import Navbar from './Components/User/Navbar';
 import OrderSuccess from './Components/User/OrderSuccess';
 import Profile from './Components/User/Profile';
 import Restaurant from './Components/User/Restaurant';
 import Results from './Components/User/Results';
+import './Components/User/Style/Mainpage.css';
 import AddProducts from './Components/Vendor/AddProducts';
 import DeleteRestaurant from './Components/Vendor/DeleteRestaurant';
 import VendorMainpage from './Components/Vendor/Mainpage';
@@ -20,56 +22,63 @@ import VendorNavbar from './Components/Vendor/Navbar';
 import Orders from './Components/Vendor/Orders';
 import UpdateKYC from './Components/Vendor/UpdateKYC';
 import VendorKYC from './Components/Vendor/VendorKYC';
-import MyOrders from './Components/User/MyOrders';
-import './Components/User/Style/Mainpage.css';
 
 
 function App() {
 
-  const [cartItems, setCartItems] = useState([]);
+  const [cartItems, setCart] = useState({
+    products: [],
+    totalPrice: 0
+});
+  const token = localStorage.getItem("token");
 
-  const handleAddToCart = (item) => {
-    setCartItems(prev => [...prev, item]);
+  const fetchCart = async () => {
+    const res = await fetch("https://food-website-backend-20z8.onrender.com/api/cart", {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+    const data = await res.json();
+    setCart(data);
   };
-  const clearCart = () => setCartItems([]);
 
-  const handleRemoveFromCart = (indexToRemove) => {
-    setCartItems(prev => prev.filter((_, index) => index !== indexToRemove));
-  };
-
+  useEffect(() => {
+    fetchCart();
+  }, []);
 
   const router = createBrowserRouter([
     {
       path: '/',
       element: (
-          <Signup />
+        <Signup />
       ),
     },
     {
       path: '/MainPage',
       element: (
-          <>
+        <>
           <Navbar cartCount={cartItems.length} />
           <Mainpage />
-          </>
+        </>
       ),
     },
     {
       path: '/Profile',
       element: (
-          <>
+        <>
           <Navbar cartCount={cartItems.length} />
           <Profile />
-          </>
+        </>
       ),
     },
     {
       path: '/MyOrders',
       element: (
-          <>
+        <>
           <Navbar cartCount={cartItems.length} />
           <MyOrders />
-          </>
+        </>
       ),
     },
     {
@@ -94,7 +103,7 @@ function App() {
       element: (
         <>
           <VendorNavbar />
-          < UpdateKYC/>
+          < UpdateKYC />
         </>
       ),
     },
@@ -103,7 +112,7 @@ function App() {
       element: (
         <>
           <VendorNavbar />
-          < DeleteRestaurant/>
+          < DeleteRestaurant />
         </>
       ),
     },
@@ -112,7 +121,7 @@ function App() {
       element: (
         <>
           <VendorNavbar />
-          < AddProducts/>
+          < AddProducts />
         </>
       ),
     },
@@ -121,22 +130,22 @@ function App() {
       element: (
         <>
           <VendorNavbar />
-          < Orders/>
+          < Orders />
         </>
       ),
     },
     {
       path: '/Login',
       element: (
-          <Login />
-        
+        <Login />
+
       ),
     },
     {
       path: '/Signup',
       element: (
-          <Signup />
-        
+        <Signup />
+
       ),
     },
 
@@ -155,7 +164,7 @@ function App() {
       element: (
         <>
           <Navbar cartCount={cartItems.length} />
-          <Restaurant onAddToCart={handleAddToCart} />
+          <Restaurant />
         </>
       ),
     },
@@ -164,7 +173,7 @@ function App() {
       element: (
         <>
           <Navbar cartCount={cartItems.length} />
-          <Cart cartItems={cartItems} onRemoveFromCart={handleRemoveFromCart} />
+          <Cart cartItems={cartItems} />
         </>
       ),
     },
@@ -172,8 +181,8 @@ function App() {
       path: '/SuccessPage',
       element: (
         <>
-          <Navbar  />
-          < OrderSuccess/>
+          <Navbar />
+          < OrderSuccess />
         </>
       ),
     },
@@ -182,7 +191,7 @@ function App() {
       element: (
         <>
           <Navbar cartCount={cartItems.length} />
-          <Checkout clearCart={clearCart}/>
+          <Checkout />
         </>
       ),
     }
@@ -190,8 +199,8 @@ function App() {
 
   return (
     <>
-    <RouterProvider router={router} />
-    <ToastContainer position="top-right" autoClose={2000} />
+      <RouterProvider router={router} />
+      <ToastContainer position="top-right" autoClose={2000} />
     </>
   );
 }

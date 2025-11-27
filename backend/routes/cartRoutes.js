@@ -1,18 +1,36 @@
 const express = require('express');
 const router = express.Router();
-const { addToCart, getCart, updateCart, deleteCart } = require('../controller/cartController');
+const {
+    addToCart,
+    getCart,
+    updateCart,
+    deleteCart,
+    increaseQuantity,
+    decreaseQuantity,
+    removeProduct
+} = require('../controller/cartController');
+
 const { isAuthenticated } = require('../middlewares/auth');
 
-// Add a product to the cart
+// Add item to cart
 router.post('/', isAuthenticated, addToCart);
 
-// Get the user's cart
+// Get full cart
 router.get('/', isAuthenticated, getCart);
 
-// Update the cart (e.g., change quantity of a product)
+// Update specific item quantity (for manual quantity input)
 router.put('/', isAuthenticated, updateCart);
 
-// Delete the cart
+// Increase item quantity (+)
+router.put('/increase/:productId', isAuthenticated, increaseQuantity);
+
+// Decrease item quantity (-)
+router.put('/decrease/:productId', isAuthenticated, decreaseQuantity);
+
+// Remove a single product
+router.delete('/:productId', isAuthenticated, removeProduct);
+
+// Clear cart
 router.delete('/', isAuthenticated, deleteCart);
 
 module.exports = router;
