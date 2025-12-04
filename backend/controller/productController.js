@@ -85,6 +85,25 @@ exports.getAllProducts = async (req, res) => {
     }
 }
 
+exports.getProductByCategory = async (req, res) => {
+    try {
+        const { category } = req.params;
+
+        const products = await Product.find({ category });
+
+        if (products.length === 0) {
+            return res.status(404).json({ message: "No product found in this category" });
+        }
+
+        res.status(200).json({ products });
+
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: "Internal Server Error" });
+    }
+};
+
+
 exports.updateProduct = async (req, res) => {
 
     // step:1 (update the product)

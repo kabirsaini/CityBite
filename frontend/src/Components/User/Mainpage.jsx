@@ -1,5 +1,7 @@
+import '@/Components/User/Style/Results.css';
 import '@/Components/User/Style/Mainpage.css';
-import { useState } from 'react';
+
+import { useState, useEffect } from 'react';
 import { FaSearch } from "react-icons/fa";
 import { Link, useNavigate } from 'react-router-dom';
 import Slider from "react-slick";
@@ -24,66 +26,6 @@ function Mainpage() {
     autoplaySpeed: 5000,
     cssEase: "linear"
   };
-
-  const Iconic = [
-    {
-      id: 1,
-      image: "https://res.cloudinary.com/dql26m6d5/image/upload/v1758009493/HyderabadiBiryani_ppsslw.png",
-      name: "Hyderabad's Biryani",
-      description: "A fragrant rice dish with marinated meat, originating from Hyderabad.",
-      city: "Hyderabad",
-    },
-    {
-      id: 2,
-      image: "https://res.cloudinary.com/dql26m6d5/image/upload/v1758009519/Rosogulla_nobcjt.png",
-      name: "Kolkata's Rosogulla",
-      description: "A spongy and sweet dessert made from chhena, originating from West Bengal.",
-      city: "Kolkata",
-    },
-    {
-      id: 3,
-      image: "https://res.cloudinary.com/dql26m6d5/image/upload/v1758009517/Dhokla_nuhnvk.png",
-      name: "Gujrat's Dhokla",
-      description: "A steamed rice cake originating from Gujarat.",
-      city: "Ahmedabad",
-    },
-
-    {
-      id: 4,
-      image: "https://res.cloudinary.com/dql26m6d5/image/upload/v1758009515/CholeKulche_lfkvcb.png",
-      name: "Amritsar's Chole Kulche",
-      description: "A type of leavened Indian bread, originating from Punjab.",
-      city: "Amritsar",
-    },
-    {
-      id: 5,
-      image: "https://res.cloudinary.com/dql26m6d5/image/upload/v1758009512/ButterChicken_lgqmsk.png",
-      name: "Delhi's Butter Chicken",
-      description: "A creamy tomato-based curry with tender chicken pieces, originating from Delhi.",
-      city: "Delhi",
-    },
-    {
-      id: 6,
-      image: "https://res.cloudinary.com/dql26m6d5/image/upload/v1758009495/Idli_lhx93s.webp",
-      name: "Banglore's Idli",
-      description: "A soft and fluffy steamed rice cake, originating from South India.",
-      city: "Bangalore",
-    },
-    {
-      id: 7,
-      image: "https://res.cloudinary.com/dql26m6d5/image/upload/v1758009316/Dal-Bhati_gkjzjf.jpg",
-      name: "Jaipur's Dal Batti",
-      description: "A traditional Rajasthani dish consisting of lentils, baked wheat balls, and sweetened crushed wheat.",
-      city: "Jaipur",
-    },
-    {
-      id: 8,
-      image: "https://res.cloudinary.com/dql26m6d5/image/upload/v1758009480/Vada-Pao_ndssmg.jpg",
-      name: "Mumbai's Vada Pao",
-      description: "A popular street food from Maharashtra, consisting of a spicy potato fritter sandwiched in a bread roll.",
-      city: "Mumbai",
-    },
-  ];
 
   const Category = [
     {
@@ -127,33 +69,52 @@ function Mainpage() {
     },
     {
       id: 8,
+      image: "https://res.cloudinary.com/dql26m6d5/image/upload/v1764325737/seafood-3d-icon-png-download-8565569_zrozab.webp",
+      name: "Seafood",
+
+    },
+    {
+      id: 9,
+      image: "https://res.cloudinary.com/dql26m6d5/image/upload/v1764325877/samosa-3d-icon-png-download-9656953_m7d57l.webp",
+      name: "Indian Snacks",
+
+    },
+    {
+      id: 10,
       image: "https://res.cloudinary.com/dql26m6d5/image/upload/v1764082314/3d-rendering-of-a-biryani-rice-with-grilled-chicken-pieces-on-transparent-background-png_rgairr.webp",
       name: "Biryani",
 
     },
     {
-      id: 8,
-      image: "https://res.cloudinary.com/dql26m6d5/image/upload/v1764082314/3d-rendering-of-a-biryani-rice-with-grilled-chicken-pieces-on-transparent-background-png_rgairr.webp",
-      name: "Biryani",
+      id: 11,
+      image: "https://res.cloudinary.com/dql26m6d5/image/upload/v1764326103/pngtree-bridge-rice-noodles-png-transparent-layer-material-png-image_7240896_w3yzi3.png",
+      name: "Mughlai",
 
     },
     {
-      id: 8,
-      image: "https://res.cloudinary.com/dql26m6d5/image/upload/v1764082314/3d-rendering-of-a-biryani-rice-with-grilled-chicken-pieces-on-transparent-background-png_rgairr.webp",
-      name: "Biryani",
-
+      id: 12,
+      image: "https://res.cloudinary.com/dql26m6d5/image/upload/v1764327910/dessert-3d-icon-png-download-7049902_dimi15.webp",
+      name: "Desserts",
     },
     {
-      id: 8,
-      image: "https://res.cloudinary.com/dql26m6d5/image/upload/v1764082314/3d-rendering-of-a-biryani-rice-with-grilled-chicken-pieces-on-transparent-background-png_rgairr.webp",
-      name: "Biryani",
-
+      id: 13,
+      image: "https://res.cloudinary.com/dql26m6d5/image/upload/v1764327984/thailand-food-3d-icon-png-download-9684794_kgntgf.webp",
+      name: "Thai",
     },
     {
-      id: 8,
-      image: "https://res.cloudinary.com/dql26m6d5/image/upload/v1764082314/3d-rendering-of-a-biryani-rice-with-grilled-chicken-pieces-on-transparent-background-png_rgairr.webp",
-      name: "Biryani",
-
+      id: 14,
+      image: "https://res.cloudinary.com/dql26m6d5/image/upload/v1764328046/360_F_553983699_h4vAWSZiiybxFY9CRhK4hR9TfYBkXE3S_nqakbw.jpg",
+      name: "Punjabi",
+    },
+    {
+      id: 15,
+      image: "https://res.cloudinary.com/dql26m6d5/image/upload/v1764327989/rabokki-3d-icon-png-download-9133006_ecr32f.webp",
+      name: "Korean",
+    },
+    {
+      id: 16,
+      image: "https://res.cloudinary.com/dql26m6d5/image/upload/v1764328171/3d-icon-of-a-vibrant-salad-in-a-bowl-featuring-fresh-tomatoes-cucumbers-lettuce-onions-and-carrots-with-a-fork-isolated-on-transparent-background-free-png_ygcd0z.webp",
+      name: "Salad",
     },
   ];
 
@@ -201,34 +162,34 @@ function Mainpage() {
       name: "Jaipur",
     },
     {
-      id: 8,
+      id: 9,
       image: "https://res.cloudinary.com/dql26m6d5/image/upload/v1758009645/vishakhapatnam_cafjj7.png",
       name: "Vishakhapatnam",
     },
     {
-      id: 9,
+      id: 10,
       image: "https://res.cloudinary.com/dql26m6d5/image/upload/v1758009688/udaipur_o20bp8.png",
       name: "Udaipur",
     },
     {
-      id: 9,
+      id: 11,
       image: "https://res.cloudinary.com/dql26m6d5/image/upload/v1758009688/udaipur_o20bp8.png",
       name: "Udaipur",
     },
     {
-      id: 9,
+      id: 12,
       image: "https://res.cloudinary.com/dql26m6d5/image/upload/v1758009688/udaipur_o20bp8.png",
       name: "Udaipur",
     },
     {
-      id: 9,
+      id: 13,
       image: "https://res.cloudinary.com/dql26m6d5/image/upload/v1758009688/udaipur_o20bp8.png",
       name: "Udaipur",
     }
-
   ];
 
   const [city, setCity] = useState('');
+  const [restaurants, setRestaurants] = useState([]);
 
   const navigate = useNavigate();
 
@@ -261,12 +222,37 @@ function Mainpage() {
       const data = await res.json();
       setCity(data.city || data.locality || "City not found");
 
+
       if (city.trim() !== '') {
         navigate(`/results/${city}`);
       }
-
     });
   };
+
+  useEffect(() => {
+    if (!city) {
+      return;
+    }
+    const fetchIconicRestaurants = async () => {
+
+      try {
+        const res = await fetch(`https://food-website-backend-20z8.onrender.com/api/restaurants/city/${city}`);
+        const data = await res.json();
+
+        if (!data) {
+          throw new Error("No data found");
+        }
+
+        setRestaurants(data.restaurants || []);
+      }
+      catch (err) {
+        console.error(err);
+      }
+    }
+    fetchIconicRestaurants();
+  }, [city]);
+
+
 
   return (
     <>
@@ -367,14 +353,13 @@ function Mainpage() {
 
         <div className="finder-section">
           <div className="finder-header">
-            <h2 style={{ fontFamily: `"Lexend", sans-serif` }}>Find Your City</h2>
+            <h2 style={{ fontFamily: `"Boogaloo", sans-serif` }}>Find Your City</h2>
           </div>
 
           <div style={{
             display: "flex",
             overflowX: "auto",
             gap: "12px",
-            padding: "10px",
             scrollBehavior: "smooth",
           }}
             className="hide-scrollbar">
@@ -399,23 +384,26 @@ function Mainpage() {
 
 
 
-        <div className="Food-Category">
+        <div className="Food-Category" style={{marginTop: "60px",}}>
           <h3>Explore by Category</h3>
           <div style={{
             display: "grid",
-            gridTemplateColumns:"repeat(8, 1fr)",
+            gridTemplateColumns: "repeat(8, 1fr)",
             gap: "12px",
             padding: "10px",
+            
           }}
             className="category-cont">
-            {Category.map((restaurant) => (
-              <div key={restaurant.id} className="category-card" style={{
+            {Category.map((cat) => (
+              <div key={cat.id} className="category-card" style={{
                 textAlign: "center"
               }}>
-                <div className="category-image">
-                  <img src={restaurant.image} alt={restaurant.name} />
+                <div className="category-image" onClick={() => {
+                  navigate(`/results/category/${encodeURIComponent(cat.name)}`);
+                }} >
+                  <img src={cat.image} alt={cat.name} />
                 </div>
-                <p className="category-name">{restaurant.name}</p>
+                <p className="category-name">{cat.name}</p>
               </div>
 
             ))}
@@ -425,7 +413,7 @@ function Mainpage() {
         <div>
           <video
             src="https://res.cloudinary.com/dql26m6d5/video/upload/v1764093305/Fresh_From_the_restaurants_to_your_doorsteps_lt7fq5.mp4"
-            style={{ width: "100%",  height: "700px", objectFit: "cover", marginTop:"80px",marginBottom:"80px"}}
+            style={{ width: "100%", height: "700px", objectFit: "cover", marginTop: "80px", marginBottom: "80px" }}
             autoPlay
             loop
             muted
@@ -436,26 +424,34 @@ function Mainpage() {
 
         </div>
 
+        <div style={{
+          display: "flex",
+          marginLeft: "40px"
+        }
+        }><h2>Best restaurants in your city</h2></div>
+        <div className="restaurant-cont2">
 
-        <div className="mainpage-content">
-          <h1>Taste the Legacy — Order Signature Dishes from Famous Cities</h1>
-          <div className="restaurant-cont">
-            {Iconic.map((restaurant) => (
-              <div key={restaurant.id} className="restaurant-card">
-                <div className="restaurant-image">
-                  <img src={restaurant.image} alt={restaurant.name} />
-                </div>
-                <h2 className="restaurant-name">{restaurant.name}</h2>
-                <button className="See-now"
-                  onClick={() => {
-                    setCity(restaurant.city);
-                    navigate(`/results/${restaurant.city}`);
-                  }}>
-                </button>
+          {restaurants.map((restaurant) => (
+            <div
+              key={restaurant._id}
+              className="restaurant-card1"
+              style={{ cursor: 'pointer' }}
+            >
+              <div className="restaurant-image">
+                <img src={restaurant.image} alt={restaurant.name} />
               </div>
+              <div className='details'>
+                <h2 className="restaurant1-name">{restaurant.name}</h2>
+                <p className="restaurant1-category">
+                  {restaurant.categories.join(", ")}
+                </p>
 
-            ))}
-          </div>
+                <p className="restaurant1-city">
+                  <strong>City:</strong> {restaurant.address?.city}
+                </p>
+              </div>
+            </div>
+          ))}
         </div>
 
 

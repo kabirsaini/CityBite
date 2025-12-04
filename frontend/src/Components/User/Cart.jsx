@@ -2,7 +2,7 @@ import '@/Components/User/Style/Cart.css';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const Cart = () => {
+const Cart = ({city}) => {
     const navigate = useNavigate();
 
     const token = localStorage.getItem("token");
@@ -18,7 +18,6 @@ const Cart = () => {
         0
     );
 
-    const city = cart.products[0]?.city?.toUpperCase() || "";
 
 
 
@@ -142,21 +141,26 @@ const Cart = () => {
                                     />
                                     <span>{item.productId.name}</span>
 
-                                    <div style={{ display: 'flex', alignItems: 'center', border: '1px solid #ccc', borderRadius: '5px', width: "80px", justifyContent: "space-between" }}>
+                                    <div style={{ display: 'flex', alignItems: 'center', border: '1px solid #ccc', borderRadius: '5px', width: "60px", justifyContent: "space-between",paddingLeft: "10px",
+    paddingRight: "10px" }}>
                                         <button onClick={() => increaseQuantity(item.productId._id)} style={{
                                             borderRadius: '5px',
                                             backgroundColor: "white",
                                             border: "white",
                                         }}>+</button>
                                         <p>{item.quantity}</p>
-                                        <button onClick={() => decreaseQuantity(item.productId._id)}>-</button>
+                                        <button onClick={() => decreaseQuantity(item.productId._id)} style={{
+                                            borderRadius: '5px',
+                                            backgroundColor: "white",
+                                            border: "white",
+                                        }}>-</button>
                                     </div>
                                     <span>₹{item.productId.price * item.quantity} </span>
                                     <button
                                         className="remove-btn"
                                         onClick={() => removeItem(item.productId._id)}
                                     >
-                                        Remove
+                                        X
                                     </button>
                                 </li>
                             ))}

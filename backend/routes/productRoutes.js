@@ -4,7 +4,7 @@ const router = express.Router();
 const { uploadProduct } = require("../middlewares/multer");
 
 const {createProduct, getAllProducts, updateProduct, 
-deleteProduct,getRestaurantProducts,getProductsByRestaurantId} = require('../controller/productController');
+deleteProduct,getRestaurantProducts,getProductsByRestaurantId,getProductByCategory} = require('../controller/productController');
 
 const { isAuthenticated, restrictTo } = require('../middlewares/auth');
 
@@ -31,5 +31,7 @@ router.delete('/:productId', isAuthenticated, restrictTo("vendor"), deleteProduc
 
 // Get all products of a restaurant
 router.get('/restaurant/:restaurantId', isAuthenticated, getRestaurantProducts);
+
+router.get('/category/:category', isAuthenticated, getProductByCategory);
 
 module.exports=router;

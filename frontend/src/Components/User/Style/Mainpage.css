@@ -206,14 +206,13 @@ gap: 10px;
 .city-image img{
   
   width: 100%; /* Make the image take up 100% of its parent's width */
-  height: 100px;
+  height: 80px;
   object-fit: cover; 
 }
 
 .top-container{
   display: flex;
   flex-direction: column;
-  height:80vh;
 }
 .slider-container{
   display: flex;

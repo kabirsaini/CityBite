@@ -30,6 +30,8 @@ function App() {
     products: [],
     totalPrice: 0
 });
+
+const [city, setCity] = useState('');
   const token = localStorage.getItem("token");
 
   const fetchCart = async () => {
@@ -43,9 +45,35 @@ function App() {
     setCart(data);
   };
 
+
+  const getLocation = () => {
+    if (!navigator.geolocation) {
+      alert("Geolocation is not supported by your browser");
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(async (position) => {
+      const { latitude, longitude } = position.coords;
+
+      // Reverse Geocoding API (Free)
+      const res = await fetch(
+        `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`
+      );
+
+      const data = await res.json();
+      setCity(data.city || data.locality || "City not found");
+
+      if (city.trim() !== '') {
+        navigate(`/results/${city}`);
+      }
+
+    });
+  };
+
   useEffect(() => {
     fetchCart();
-  }, []);
+    getLocation();
+  },[]);
 
   const router = createBrowserRouter([
     {
@@ -58,7 +86,7 @@ function App() {
       path: '/MainPage',
       element: (
         <>
-          <Navbar cartCount={cartItems.length} />
+          <Navbar cartCount={cartItems.products.length} />
           <Mainpage />
         </>
       ),
@@ -67,7 +95,7 @@ function App() {
       path: '/Profile',
       element: (
         <>
-          <Navbar cartCount={cartItems.length} />
+          <Navbar cartCount={cartItems.products.length} />
           <Profile />
         </>
       ),
@@ -76,7 +104,7 @@ function App() {
       path: '/MyOrders',
       element: (
         <>
-          <Navbar cartCount={cartItems.length} />
+          <Navbar cartCount={cartItems.products.length} />
           <MyOrders />
         </>
       ),
@@ -154,16 +182,27 @@ function App() {
       path: '/results/:city',
       element: (
         <>
-          <Navbar cartCount={cartItems.length} />
+          <Navbar cartCount={cartItems.products.length} />
           <Results />
         </>
       )
     },
     {
+      path: "/results/category/:cat",
+      
+      element: (
+        <>
+        <Navbar cartCount={cartItems.products.length} />
+        <Results />
+        </>
+      )
+    },
+
+    {
       path: '/restaurant/:id',
       element: (
         <>
-          <Navbar cartCount={cartItems.length} />
+          <Navbar cartCount={cartItems.products.length} />
           <Restaurant />
         </>
       ),
@@ -172,8 +211,8 @@ function App() {
       path: '/Cart',
       element: (
         <>
-          <Navbar cartCount={cartItems.length} />
-          <Cart cartItems={cartItems} />
+          <Navbar cartCount={cartItems.products.length} />
+          <Cart cartItems={cartItems} city={city}/>
         </>
       ),
     },
@@ -190,7 +229,7 @@ function App() {
       path: '/Checkout',
       element: (
         <>
-          <Navbar cartCount={cartItems.length} />
+          <Navbar cartCount={cartItems.products.length} />
           <Checkout />
         </>
       ),

@@ -5,14 +5,17 @@ import { FaSearch } from "react-icons/fa";
 
 
 const Results = ({ city2 }) => {
-    const { city } = useParams();
+    const { city ,cat} = useParams();
+
     const navigate = useNavigate();
     const [restaurants, setRestaurants] = useState([]);
+    const [category, setCategory] = useState([]);
     const [loading, setLoading] = useState(true);
     const [city1, setCity] = useState('');
 
     useEffect(() => {
         window.scrollTo(0, 0);
+
         const fetchRestaurantsByCity = async () => {
             try {
                 const cityToFetch = city2 || city;
@@ -33,9 +36,29 @@ const Results = ({ city2 }) => {
                 setLoading(false);
             }
         };
-
         fetchRestaurantsByCity();
     }, [city, city2]);
+
+    useEffect(() => {
+        const fetchByCategory = async (cat) => {
+            try {
+                const res = await fetch(`https://food-website-backend-20z8.onrender.com/api/products/category/${cat}`);
+    
+                if (!res.ok) {
+                    const data = await res.json();
+                    alert(data.message || "Error fetching food by category.");
+                }
+                const data = await res.json();
+                setCategory(data.products || []);
+            }
+            catch (err) {
+                console.error(err);
+                alert("Failed to fetch food by category");
+            }
+        };
+
+        fetchByCategory(cat);
+    }, [cat]);
 
 
     const handleRestaurantClick = async (id) => {
@@ -58,7 +81,7 @@ const Results = ({ city2 }) => {
         }
     };
 
-
+    
 
 
     const handleSearch = () => {
@@ -98,16 +121,41 @@ const Results = ({ city2 }) => {
 
                 {loading ? (
                     <p>Loading...</p>
+                ) : category.length > 0 ? (
+                    // ---------- SHOW CATEGORIES ----------
+                    <div className="restaurant-cont2">
+                        {category.map((cat) => (
+                            <div
+                                key={cat._id}
+                                className="restaurant-card1"
+                                onClick={() => handleRestaurantClick(cat._id)}
+                                style={{ cursor: 'pointer' }}
+                            >
+                                <div className="restaurant-image">
+                                    <img src={cat.image} alt={cat.name} />
+                                </div>
+                                <div className='details'>
+                                    <h2 className="restaurant1-name">{cat.name}</h2>
+                                    <p className="restaurant1-category">
+                                        {cat.categories.join(", ")}
+                                    </p>
+                                    <p className="restaurant1-city">
+                                        <strong>City:</strong> {cat.address?.city}
+                                    </p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
                 ) : restaurants.length === 0 ? (
                     <p>No restaurants found.</p>
                 ) : (
+                    // ---------- SHOW RESTAURANTS ----------
                     <div className="restaurant-cont2">
                         {restaurants.map((restaurant) => (
                             <div
                                 key={restaurant._id}
                                 className="restaurant-card1"
                                 onClick={() => handleRestaurantClick(restaurant._id)}
-
                                 style={{ cursor: 'pointer' }}
                             >
                                 <div className="restaurant-image">
@@ -118,7 +166,6 @@ const Results = ({ city2 }) => {
                                     <p className="restaurant1-category">
                                         {restaurant.categories.join(", ")}
                                     </p>
-
                                     <p className="restaurant1-city">
                                         <strong>City:</strong> {restaurant.address?.city}
                                     </p>
@@ -127,6 +174,7 @@ const Results = ({ city2 }) => {
                         ))}
                     </div>
                 )}
+
             </div>
         </>
     );

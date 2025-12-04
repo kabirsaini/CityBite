@@ -144,7 +144,6 @@ const Restaurant = () => {
                             <p>{restaurant.description || "Description not available."}</p>
                         </div>
                         </>
-
                     )}
 
                     {activeTab === 'menu' && (
@@ -175,8 +174,6 @@ const Restaurant = () => {
                                             </div>
                                         ))}
                                     </div>
-
-
                                 </ul>
                             ) : (
                                 <p>No items found in the menu.</p>
