@@ -35,7 +35,7 @@ function Mainpage() {
     },
     {
       id: 2,
-      image: "https://res.cloudinary.com/dql26m6d5/image/upload/v1764072946/Screenshot_2025-11-25_at_5.45.38_PM_hg7a8x.png",
+      image: "https://res.cloudinary.com/dql26m6d5/image/upload/v1764881583/Screenshot_2025-11-25_at_5.45.38_PM_hg7a8x_mrgeb3.png",
       name: "South Indian",
     },
     {
@@ -103,7 +103,7 @@ function Mainpage() {
     },
     {
       id: 14,
-      image: "https://res.cloudinary.com/dql26m6d5/image/upload/v1764328046/360_F_553983699_h4vAWSZiiybxFY9CRhK4hR9TfYBkXE3S_nqakbw.jpg",
+      image: "https://res.cloudinary.com/dql26m6d5/image/upload/v1764882264/Screenshot_2025-12-05_at_2.29.20_AM_aygbap.png",
       name: "Punjabi",
     },
     {
@@ -148,7 +148,7 @@ function Mainpage() {
     },
     {
       id: 6,
-      image: "https://res.cloudinary.com/dql26m6d5/image/upload/v1758009671/hyderabad_d3gxpf.png",
+      image: "https://res.cloudinary.com/dql26m6d5/image/upload/v1764880248/copy_of_hyderabad_d3gxpf_de2b90.jpg",
       name: "Hyderabad",
     },
     {
@@ -173,18 +173,18 @@ function Mainpage() {
     },
     {
       id: 11,
-      image: "https://res.cloudinary.com/dql26m6d5/image/upload/v1758009688/udaipur_o20bp8.png",
-      name: "Udaipur",
+      image: "https://res.cloudinary.com/dql26m6d5/image/upload/v1764880507/Screenshot_2025-12-05_at_2.04.59_AM_iakoum.png",
+      name: "Chandigarh",
     },
     {
       id: 12,
-      image: "https://res.cloudinary.com/dql26m6d5/image/upload/v1758009688/udaipur_o20bp8.png",
-      name: "Udaipur",
+      image: "https://res.cloudinary.com/dql26m6d5/image/upload/v1764880615/Screenshot_2025-12-05_at_2.06.49_AM_w4oa3m.png",
+      name: "Shimla",
     },
     {
       id: 13,
-      image: "https://res.cloudinary.com/dql26m6d5/image/upload/v1758009688/udaipur_o20bp8.png",
-      name: "Udaipur",
+      image: "https://res.cloudinary.com/dql26m6d5/image/upload/v1764880835/Screenshot_2025-12-05_at_2.09.14_AM_znbsd4.png",
+      name: "Agra",
     }
   ];
 
@@ -351,9 +351,11 @@ function Mainpage() {
         </div>
 
 
+         {/* Find Your CITY */}
+
         <div className="finder-section">
           <div className="finder-header">
-            <h2 style={{ fontFamily: `"Boogaloo", sans-serif` }}>Find Your City</h2>
+            <h3 style={{  }}>Find Your City</h3>
           </div>
 
           <div style={{
@@ -376,7 +378,7 @@ function Mainpage() {
                 }}>
                   <img src={city.image} alt={city.name} />
                 </div>
-                <h2 className="city-name">{city.name}</h2>
+                <p className="city-name">{city.name}</p>
               </div>
             ))}
           </div>
@@ -400,7 +402,7 @@ function Mainpage() {
               }}>
                 <div className="category-image" onClick={() => {
                   navigate(`/results/category/${encodeURIComponent(cat.name)}`);
-                }} >
+                }} style={{backgroundColor: "rgb(238 244 249)" , borderRadius: "15px"}}>
                   <img src={cat.image} alt={cat.name} />
                 </div>
                 <p className="category-name">{cat.name}</p>
@@ -410,18 +412,15 @@ function Mainpage() {
           </div>
         </div>
 
-        <div>
+        <div >
           <video
             src="https://res.cloudinary.com/dql26m6d5/video/upload/v1764093305/Fresh_From_the_restaurants_to_your_doorsteps_lt7fq5.mp4"
-            style={{ width: "100%", height: "700px", objectFit: "cover", marginTop: "80px", marginBottom: "80px" }}
+            style={{ width: "100%", height: "600px", objectFit: "cover", marginTop: "80px", marginBottom: "80px" }}
             autoPlay
             loop
             muted
             playsInline
           />
-
-
-
         </div>
 
         <div style={{

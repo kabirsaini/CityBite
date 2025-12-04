@@ -1,8 +1,8 @@
 import '@/Components/User/Style/Results.css';
-import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { FaArrowRight,FaSearch } from "react-icons/fa";
 import { ArrowRight } from "lucide-react";
+import { useEffect, useState } from 'react';
+import { FaSearch } from "react-icons/fa";
+import { useNavigate, useParams } from 'react-router-dom';
 
 
 const Results = ({ city2 }) => {
@@ -55,13 +55,13 @@ const Results = ({ city2 }) => {
                 const data = await res.json();
                 if (!res.ok) {
                     setLoading(false);
-                    alert(data.message || "Error fetching food by category.");
+                    console.log(data.message || "Error fetching food by category.");
                 }
                 setCategory(data.products || []);
             }
             catch (err) {
+                setLoading(false);
                 console.error(err);
-                alert("Failed to fetch food by category");
             }
             finally {
                 setLoading(false);
@@ -148,29 +148,29 @@ const Results = ({ city2 }) => {
                                     <div className="restaurant-image">
                                         <img src={cat.image} alt={cat.name} />
                                     </div>
-                                    <div style={{    margin: "4px 0px 0px 14px"}}>
-                                        {cat.tags==="veg" ? (<img src="https://res.cloudinary.com/dql26m6d5/image/upload/v1764870102/Veg_symbol.svg_gertl5.png" alt="" height={23} width={23}/>)
-                                        : (<img src="https://res.cloudinary.com/dql26m6d5/image/upload/v1764872800/Non_veg_symbol.svg_dntdkk.png" alt="" height={23} width={23}/>)}
+                                    <div style={{ margin: "4px 0px 0px 14px" }}>
+                                        {cat.tags === "veg" ? (<img src="https://res.cloudinary.com/dql26m6d5/image/upload/v1764870102/Veg_symbol.svg_gertl5.png" alt="" height={23} width={23} />)
+                                            : (<img src="https://res.cloudinary.com/dql26m6d5/image/upload/v1764872800/Non_veg_symbol.svg_dntdkk.png" alt="" height={23} width={23} />)}
                                     </div>
+
+                                    
                                     <div className='details-cont' style={{ display: "flex", justifyContent: "space-between", marginLeft: "10px" }}>
                                         <div className='details'>
                                             <h3 className="restaurant1-name">{cat.name}</h3>
-                                    
-
                                             <p className="restaurant1-city">
-                                            ₹{cat.price}
-                                        </p>
+                                                ₹{cat.price}
+                                            </p>
                                         </div>
 
                                         <div style={{ display: "flex", flexDirection: "column", gap: "10px", alignItems: "center", justifyContent: "center", marginRight: "20px" }}>
                                             <button className='add-to-cart'>Add to cart</button>
                                         </div>
                                     </div>
-                                    <div style={{ display: "flex", justifyContent: "space-between", margin: "5px 14px 0px 14px" , borderTop: "1px solid lightsteelblue" , paddingTop: "8px"}}
-                                        onClick={() => handleRestaurantClick(cat.restaurantId?._id)}                                    
+                                    <div style={{ display: "flex", justifyContent: "space-between", margin: "5px 14px 0px 14px", borderTop: "1px solid lightsteelblue", paddingTop: "8px" }}
+                                        onClick={() => handleRestaurantClick(cat.restaurantId?._id)}
                                     >
                                         <p>More From {cat.restaurantId?.name}</p>
-                                        <ArrowRight size={18} style={{ verticalAlign: "middle",color: "#666"}} strokeWidth={2}/>
+                                        <ArrowRight size={18} style={{ verticalAlign: "middle", color: "#666" }} strokeWidth={2} />
                                     </div>
                                 </div>
 
@@ -187,18 +187,23 @@ const Results = ({ city2 }) => {
                                 key={restaurant._id}
                                 className="restaurant-card1"
                                 onClick={() => handleRestaurantClick(restaurant._id)}
-                                style={{ cursor: 'pointer' }}
+                                style={{ cursor: 'pointer'}}
                             >
                                 <div className="restaurant-image">
                                     <img src={restaurant.image} alt={restaurant.name} />
                                 </div>
-                                <div className='details'>
-                                    <h2 className="restaurant1-name">{restaurant.name}</h2>
+                                <div className='details' style={{ margin:"5px 0px 0px 10px"}}>
+                                    <h3 className="restaurant1-name">{restaurant.name}</h3>
+                                    <div style={{display:"flex", gap:"3px"}}>
+
+                                    <img src="https://res.cloudinary.com/dql26m6d5/image/upload/v1764878816/ChatGPT_Image_Dec_5_2025_01_33_06_AM_h3zics.png" alt="" height={20} width={20} />
+                                    <p>{restaurant.ratings.average}</p>
+                                    </div>
                                     <p className="restaurant1-category">
                                         {restaurant.categories.join(", ")}
                                     </p>
                                     <p className="restaurant1-city">
-                                        <strong>City:</strong> {restaurant.address?.city}
+                                        {restaurant.address?.street}
                                     </p>
                                 </div>
                             </div>

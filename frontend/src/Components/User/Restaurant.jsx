@@ -9,13 +9,14 @@ const Restaurant = () => {
     const [restaurant, setRestaurant] = useState({});
     const [reviews, setReviews] = useState([]);
     const [products, setProducts] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     const [cart, setCart] = useState({
         products: [],
         totalPrice: 0
-      });
+    });
 
-    const token=localStorage.getItem("token");
+    const token = localStorage.getItem("token");
 
     useEffect(() => {
         const fetchRestaurantAndProducts = async () => {
@@ -57,6 +58,9 @@ const Restaurant = () => {
                 console.error(error);
                 alert("Failed to fetch restaurant or products.");
             }
+            finally {
+                setLoading(false);
+            }
         };
         fetchRestaurantAndProducts();
     }, [id]);
@@ -93,24 +97,30 @@ const Restaurant = () => {
         }
     };
 
-    const fetchCart = async()=>{
-        const res=await fetch("https://food-website-backend-20z8.onrender.com/api/cart", {
-            method:'GET',
+    const fetchCart = async () => {
+        const res = await fetch("https://food-website-backend-20z8.onrender.com/api/cart", {
+            method: 'GET',
             headers: {
                 Authorization: `Bearer ${token}`
             }
         });
-        const data=await res.json();
+        const data = await res.json();
         setCart(data);
     };
 
-    useEffect( ()=>{
+    useEffect(() => {
         fetchCart();
-    },[]);
+    }, []);
 
 
     return (
         <>
+                {loading ? (
+                    <p style={{textAlign: "center", marginTop:"30px",fontFamily: `"Segoe UI", Tahoma, Geneva, Verdana, sans-serif`,
+                    
+                        /* font-size: 18px; */
+                        color: "#666"}}>Loading...</p>
+                ) : (
             <div className="restaurant-details">
                 <div className="tab-nav">
                     <button
@@ -132,6 +142,7 @@ const Restaurant = () => {
                         Contact Us
                     </button>
                 </div>
+                
 
                 <div className="tab-content">
                     {activeTab === 'about' && (
@@ -139,10 +150,10 @@ const Restaurant = () => {
                             <div className="restaurant-image">
                                 <img src={restaurant.image} alt={restaurant.name} />
                             </div>
-                        <div>
-                            <h3>About Us</h3>
-                            <p>{restaurant.description || "Description not available."}</p>
-                        </div>
+                            <div>
+                                <h3>About Us</h3>
+                                <p>{restaurant.description || "Description not available."}</p>
+                            </div>
                         </>
                     )}
 
@@ -154,22 +165,35 @@ const Restaurant = () => {
                                     <div className="menu-list">
                                         {products.map((item, index) => (
                                             <div className={`menu-item ${!item.isAvailable ? 'unavailable' : ''}`} key={index}>
-                                                <img
+
+                                                <img id='menu-item-img'
                                                     src={item.image}
                                                     alt={item.name}
                                                 />
-                                                <div className="item-info">
+                                                <div style={{ margin: "4px 0px 0px 14px" }}>
+                                                    {item.tags === "veg" ? (<img src="https://res.cloudinary.com/dql26m6d5/image/upload/v1764870102/Veg_symbol.svg_gertl5.png" alt="" height={23} width={23} />)
+                                                        : (<img src="https://res.cloudinary.com/dql26m6d5/image/upload/v1764872800/Non_veg_symbol.svg_dntdkk.png" alt="" height={23} width={23} />)}
+                                                </div>
+
+
+                                                <div className='details-cont' style={{ display: "flex", justifyContent: "space-between", marginLeft: "10px" }}>
+                                                    <div>
                                                     <p>{item.name}</p>
                                                     <p>{item.category}</p>
                                                     <p>Price: ₹{item.price}</p>
-                                                    <button
-                                                        className="add-to-cart"
-                                                        onClick={() => handleAddToCart(item)}
-                                                        disabled={!item.isAvailable}
-                                                    >
-                                                        {item.isAvailable ? 'Add to Cart' : 'Unavailable'}
-                                                    </button>
+                                                    </div>
+                                                    <div style={{ display: "flex", flexDirection: "column", gap: "10px", alignItems: "center", justifyContent: "center" }}>
+                                                        <button
+                                                            className="add-to-cart"
+                                                            onClick={() => handleAddToCart(item)}
+                                                            disabled={!item.isAvailable}
+                                                        >
+                                                            {item.isAvailable ? 'Add to Cart' : 'Unavailable'}
+                                                        </button>
+                                                    </div>
                                                 </div>
+
+
                                                 {!item.isAvailable && <div className="overlay"></div>}
                                             </div>
                                         ))}
@@ -191,6 +215,7 @@ const Restaurant = () => {
                     )}
                 </div>
             </div>
+            )}
         </>
     );
 };

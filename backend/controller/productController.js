@@ -15,7 +15,7 @@ exports.createProduct = async (req, res) => {
         if (!restaurant) {
             return res.status(403).json({ message: "You must register your restaurant first." });
         }
-        const { name, description, price, category, isAvailable } = req.body;
+        const { name, description, price, category } = req.body;
 
         const image = req.file ? req.file.path : null;
 
@@ -32,7 +32,6 @@ exports.createProduct = async (req, res) => {
             category,
             image,
             restaurantId: restaurant._id, // assuming the user has a restaurantId in their profile
-            isAvailable,
             createdBy: req.user._id // assuming req.user contains the authenticated user's info
         });
 
