@@ -89,7 +89,8 @@ exports.getProductByCategory = async (req, res) => {
     try {
         const { category } = req.params;
 
-        const products = await Product.find({ category });
+        const products = await Product.find({ category })
+        .populate("restaurantId", "name address");
 
         if (products.length === 0) {
             return res.status(404).json({ message: "No product found in this category" });

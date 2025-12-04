@@ -5,7 +5,7 @@ import { FaSearch } from "react-icons/fa";
 
 
 const Results = ({ city2 }) => {
-    const { city ,cat} = useParams();
+    const { city, cat } = useParams();
 
     const navigate = useNavigate();
     const [restaurants, setRestaurants] = useState([]);
@@ -42,13 +42,18 @@ const Results = ({ city2 }) => {
     useEffect(() => {
         const fetchByCategory = async (cat) => {
             try {
-                const res = await fetch(`https://food-website-backend-20z8.onrender.com/api/products/category/${cat}`);
-    
+                const token = localStorage.getItem("token");
+                const res = await fetch(`https://food-website-backend-20z8.onrender.com/api/products/category/${cat}`, {
+                    method: "GET",
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+
+                const data = await res.json();
                 if (!res.ok) {
-                    const data = await res.json();
                     alert(data.message || "Error fetching food by category.");
                 }
-                const data = await res.json();
                 setCategory(data.products || []);
             }
             catch (err) {
@@ -81,7 +86,7 @@ const Results = ({ city2 }) => {
         }
     };
 
-    
+
 
 
     const handleSearch = () => {
@@ -117,7 +122,7 @@ const Results = ({ city2 }) => {
 
                 </div>
 
-                <h2 className='top-head'>Best Restaurants in {city}</h2>
+                <h2 className='top-head'>Best Restaurants in {city || cat}</h2>
 
                 {loading ? (
                     <p>Loading...</p>
@@ -137,10 +142,11 @@ const Results = ({ city2 }) => {
                                 <div className='details'>
                                     <h2 className="restaurant1-name">{cat.name}</h2>
                                     <p className="restaurant1-category">
-                                        {cat.categories.join(", ")}
+                                        {cat.category}
                                     </p>
+
                                     <p className="restaurant1-city">
-                                        <strong>City:</strong> {cat.address?.city}
+                                        {cat.restaurantId?.name}
                                     </p>
                                 </div>
                             </div>
