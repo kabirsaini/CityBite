@@ -26,7 +26,11 @@ const productSchema = new mongoose.Schema({
         required:true,
     },
 
-    tags:[String],
+    tags:{
+        type: String,
+        enum: ["veg", "nonveg"],
+        required: true
+    },
 
     ratings:{
         average:{

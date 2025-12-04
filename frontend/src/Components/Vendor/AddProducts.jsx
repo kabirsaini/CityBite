@@ -197,7 +197,7 @@ const AddProducts = () => {
                         <p style={{ fontWeight: "bold", marginBottom: "8px" }}>Select Food Category:</p>
 
                         <div style={{ display: "flex", flexWrap: "wrap", gap: "12px" }}>
-                            {["Chinese", "Indian", "Italian", "Korean", "Japanese"].map((cat) => (
+                            {["North Indian","South Indian","Chinese","Mexican","Italian", "Coffee","Cakes", "Seafood","Indian Snacks","Biryani","Mughlai","Desserts","Thai","Punjabi","Korean","Salad"].map((cat) => (
                                 <label
                                     key={cat}
                                     style={{

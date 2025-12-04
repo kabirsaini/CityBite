@@ -1,7 +1,8 @@
 import '@/Components/User/Style/Results.css';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { FaSearch } from "react-icons/fa";
+import { FaArrowRight,FaSearch } from "react-icons/fa";
+import { ArrowRight } from "lucide-react";
 
 
 const Results = ({ city2 }) => {
@@ -15,6 +16,7 @@ const Results = ({ city2 }) => {
 
     useEffect(() => {
         window.scrollTo(0, 0);
+        if (cat) return;
 
         const fetchRestaurantsByCity = async () => {
             try {
@@ -52,6 +54,7 @@ const Results = ({ city2 }) => {
 
                 const data = await res.json();
                 if (!res.ok) {
+                    setLoading(false);
                     alert(data.message || "Error fetching food by category.");
                 }
                 setCategory(data.products || []);
@@ -60,9 +63,12 @@ const Results = ({ city2 }) => {
                 console.error(err);
                 alert("Failed to fetch food by category");
             }
+            finally {
+                setLoading(false);
+            }
         };
 
-        fetchByCategory(cat);
+        if (cat) fetchByCategory(cat);
     }, [cat]);
 
 
@@ -107,7 +113,7 @@ const Results = ({ city2 }) => {
                     <FaSearch className="search-icon" />
                     <input
                         type="text"
-                        placeholder="Search for a Restaurant"
+                        placeholder="Search for a Restaurant, food or cuisine"
                         className="find-input2"
                         value={city1}
                         onChange={(e) => setCity(e.target.value)}
@@ -122,36 +128,55 @@ const Results = ({ city2 }) => {
 
                 </div>
 
-                <h2 className='top-head'>Best Restaurants in {city || cat}</h2>
-
                 {loading ? (
                     <p>Loading...</p>
                 ) : category.length > 0 ? (
                     // ---------- SHOW CATEGORIES ----------
-                    <div className="restaurant-cont2">
-                        {category.map((cat) => (
-                            <div
-                                key={cat._id}
-                                className="restaurant-card1"
-                                onClick={() => handleRestaurantClick(cat._id)}
-                                style={{ cursor: 'pointer' }}
-                            >
-                                <div className="restaurant-image">
-                                    <img src={cat.image} alt={cat.name} />
-                                </div>
-                                <div className='details'>
-                                    <h2 className="restaurant1-name">{cat.name}</h2>
-                                    <p className="restaurant1-category">
-                                        {cat.category}
-                                    </p>
+                    <>
+                        <div className="head" style={{ marginLeft: "50px", marginBottom: "20px", }}>
+                            <h1>{cat}</h1>
+                            <p style={{ display: "flex", marginTop: "10px", color: "#666" }}>Indulge with the best of {cat} cuisines.</p>
 
-                                    <p className="restaurant1-city">
-                                        {cat.restaurantId?.name}
-                                    </p>
+                        </div>
+                        <div className="restaurant-cont2">
+                            {category.map((cat) => (
+                                <div
+                                    key={cat._id}
+                                    className="restaurant-card1"
+                                    style={{ cursor: 'pointer' }}
+                                >
+                                    <div className="restaurant-image">
+                                        <img src={cat.image} alt={cat.name} />
+                                    </div>
+                                    <div style={{    margin: "4px 0px 0px 14px"}}>
+                                        {cat.tags==="veg" ? (<img src="https://res.cloudinary.com/dql26m6d5/image/upload/v1764870102/Veg_symbol.svg_gertl5.png" alt="" height={23} width={23}/>)
+                                        : (<img src="https://res.cloudinary.com/dql26m6d5/image/upload/v1764872800/Non_veg_symbol.svg_dntdkk.png" alt="" height={23} width={23}/>)}
+                                    </div>
+                                    <div className='details-cont' style={{ display: "flex", justifyContent: "space-between", marginLeft: "10px" }}>
+                                        <div className='details'>
+                                            <h3 className="restaurant1-name">{cat.name}</h3>
+                                    
+
+                                            <p className="restaurant1-city">
+                                            ₹{cat.price}
+                                        </p>
+                                        </div>
+
+                                        <div style={{ display: "flex", flexDirection: "column", gap: "10px", alignItems: "center", justifyContent: "center", marginRight: "20px" }}>
+                                            <button className='add-to-cart'>Add to cart</button>
+                                        </div>
+                                    </div>
+                                    <div style={{ display: "flex", justifyContent: "space-between", margin: "5px 14px 0px 14px" , borderTop: "1px solid lightsteelblue" , paddingTop: "8px"}}
+                                        onClick={() => handleRestaurantClick(cat.restaurantId?._id)}                                    
+                                    >
+                                        <p>More From {cat.restaurantId?.name}</p>
+                                        <ArrowRight size={18} style={{ verticalAlign: "middle",color: "#666"}} strokeWidth={2}/>
+                                    </div>
                                 </div>
-                            </div>
-                        ))}
-                    </div>
+
+                            ))}
+                        </div>
+                    </>
                 ) : restaurants.length === 0 ? (
                     <p>No restaurants found.</p>
                 ) : (

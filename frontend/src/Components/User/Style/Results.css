@@ -54,6 +54,7 @@
         justify-items: center; /* center each card horizontally */
         align-items: start; /* align cards from the top */
         padding: 20px;
+        
       }
       
     
@@ -61,7 +62,7 @@
 
 /* Optional: Smooth animation on render */
 .restaurant-cont2 > div {
-    height: 300px;
+    height: 320px;
     width: 350px;
     animation: fadeIn 0.4s ease-in-out;
 }
