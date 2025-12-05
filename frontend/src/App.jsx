@@ -86,7 +86,7 @@ const [city, setCity] = useState('');
       path: '/MainPage',
       element: (
         <>
-          <Navbar cartCount={cartItems.products.length} />
+          <Navbar cartCount={cartItems.products?.length || 0} />
           <Mainpage />
         </>
       ),
@@ -95,7 +95,7 @@ const [city, setCity] = useState('');
       path: '/Profile',
       element: (
         <>
-          <Navbar cartCount={cartItems.products.length} />
+          <Navbar cartCount={cartItems.products?.length|| 0} />
           <Profile />
         </>
       ),
@@ -104,7 +104,7 @@ const [city, setCity] = useState('');
       path: '/MyOrders',
       element: (
         <>
-          <Navbar cartCount={cartItems.products.length} />
+          <Navbar cartCount={cartItems.products?.length || 0} />
           <MyOrders />
         </>
       ),
@@ -182,7 +182,7 @@ const [city, setCity] = useState('');
       path: '/results/:city',
       element: (
         <>
-          <Navbar cartCount={cartItems.products.length} />
+          <Navbar cartCount={cartItems.products?.length || 0} />
           <Results />
         </>
       )
@@ -192,7 +192,7 @@ const [city, setCity] = useState('');
       
       element: (
         <>
-        <Navbar cartCount={cartItems.products.length} />
+        <Navbar cartCount={cartItems.products?.length || 0} />
         <Results />
         </>
       )
@@ -202,7 +202,7 @@ const [city, setCity] = useState('');
       path: '/restaurant/:id',
       element: (
         <>
-          <Navbar cartCount={cartItems.products.length} />
+          <Navbar cartCount={cartItems.products?.length} />
           <Restaurant />
         </>
       ),
@@ -211,7 +211,7 @@ const [city, setCity] = useState('');
       path: '/Cart',
       element: (
         <>
-          <Navbar cartCount={cartItems.products.length} />
+          <Navbar cartCount={cartItems.products?.length || 0} />
           <Cart cartItems={cartItems} city={city}/>
         </>
       ),
@@ -229,7 +229,7 @@ const [city, setCity] = useState('');
       path: '/Checkout',
       element: (
         <>
-          <Navbar cartCount={cartItems.products.length} />
+          <Navbar cartCount={cartItems.products?.length || 0} />
           <Checkout />
         </>
       ),
